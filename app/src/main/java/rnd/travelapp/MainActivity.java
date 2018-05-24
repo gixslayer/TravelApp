@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import rnd.travelapp.cache.AppCache;
 import rnd.travelapp.resources.BitmapResource;
 import rnd.travelapp.models.TestModel;
 import rnd.travelapp.serialization.BinaryLoaders;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AppCache.getFor(this).onCompletion(this::onCacheInitialized);
+
         try {
             String json = "{\"int\":2,\"double\":3.14,\"string\":\"test string\"}";
             InputStream stream = getBitmapStream();
@@ -54,5 +57,11 @@ public class MainActivity extends Activity {
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void onCacheInitialized(AppCache cache) {
+        cache.getOrFetch("model", TestModel.class).onCompletion(m -> {
+            TestModel model = m.orOnFailure(null);
+        });
     }
 }
