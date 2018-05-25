@@ -1,16 +1,13 @@
 package rnd.travelapp.cache;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import rnd.travelapp.utils.Failable;
+import rnd.travelapp.utils.HttpUtils;
 import rnd.travelapp.utils.StreamUtils;
 
 public class HttpFetcher implements Fetcher {
@@ -28,24 +25,21 @@ public class HttpFetcher implements Fetcher {
 
     @Override
     public Failable<File> fetch(String key, File destination) {
-        HttpURLConnection connection = null;
-
         destination.getParentFile().mkdirs();
+        URL fetchURL;
 
         try {
-            connection = (HttpURLConnection)getFetchURL(key).openConnection();
-            OutputStream outputStream = new FileOutputStream(destination);
-            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-
-            StreamUtils.copy(inputStream, outputStream);
-
-            return Failable.success(destination);
-        } catch (IOException e){
+            fetchURL = getFetchURL(key);
+        }  catch (MalformedURLException e) {
             return Failable.failure(e);
-        } finally {
-            if(connection != null) {
-                connection.disconnect();
-            }
         }
+
+        return HttpUtils.doGet(fetchURL, ((connection, stream) -> {
+            OutputStream outputStream = new FileOutputStream(destination);
+
+            StreamUtils.copy(stream, outputStream);
+
+            return destination;
+        }));
     }
 }

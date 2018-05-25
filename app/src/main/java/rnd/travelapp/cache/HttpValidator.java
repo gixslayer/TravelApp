@@ -1,16 +1,19 @@
 package rnd.travelapp.cache;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import rnd.travelapp.utils.Failable;
+import rnd.travelapp.utils.HttpUtils;
 import rnd.travelapp.utils.StreamUtils;
 
 public class HttpValidator implements Validator {
@@ -26,74 +29,50 @@ public class HttpValidator implements Validator {
 
     @Override
     public Failable<String> getLastModified() {
-        return doGet(hostURL, (connection, stream) -> StreamUtils.toString(stream));
+        return HttpUtils.doGet(hostURL, (connection, stream) -> StreamUtils.toString(stream));
     }
 
     @Override
     public Failable<List<ValidatorEntry>> validate(List<DiskCacheEntry> entries) {
-        return doPost(hostURL,
+        return HttpUtils.doPost(hostURL,
                 stream -> postEntries(stream, entries),
                 (connection, stream) -> parseEntries(stream));
     }
 
-    private void postEntries(OutputStream stream, List<DiskCacheEntry> entries) {
+    private void postEntries(OutputStream stream, List<DiskCacheEntry> entries) throws JSONException, IOException {
+        JSONArray array = new JSONArray();
 
+        entries.forEach(e -> array.put(createPostEntry(e)));
+
+        String json = array.toString(0);
+        stream.write(json.getBytes("UTF-8"));
     }
 
-    private List<ValidatorEntry> parseEntries(InputStream stream) {
-        return null;
-    }
-
-    private <T> Failable<T> doGet(URL url, ConnectionHandler<T> handler) {
-        HttpURLConnection connection = null;
+    private JSONObject createPostEntry(DiskCacheEntry entry) {
+        JSONObject object = new JSONObject();
 
         try {
-            connection = (HttpURLConnection) url.openConnection();
-
-            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            T result = handler.process(connection, inputStream);
-
-            return Failable.success(result);
-        } catch (Exception e) {
-            return Failable.failure(e);
-        } finally {
-            if(connection != null) {
-                connection.disconnect();
-            }
+            object.put("file", entry.getPath());
+            object.put("checksum", entry.getChecksum());
+        } catch (JSONException e) {
+            // NOTE: This exception can only be thrown when an invalid Number object is passed, thus
+            // never in this case.
         }
+
+        return object;
     }
 
-    private <T> Failable<T> doPost(URL url, ConnectionPoster poster, ConnectionHandler<T> handler) {
-        HttpURLConnection connection = null;
+    private List<ValidatorEntry> parseEntries(InputStream stream) throws IOException, JSONException {
+        String json = StreamUtils.toString(stream);
+        JSONArray array = new JSONArray(json);
+        List<ValidatorEntry> entries = new ArrayList<>();
 
-        try {
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setChunkedStreamingMode(0);
+        for(int i = 0; i < array.length(); ++i) {
+            JSONObject object = array.getJSONObject(i);
 
-            OutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
-            poster.post(outputStream);
-
-            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            T result = handler.process(connection, inputStream);
-
-            return Failable.success(result);
-        } catch (Exception e) {
-            return Failable.failure(e);
-        } finally {
-            if(connection != null) {
-                connection.disconnect();
-            }
+            entries.add(ValidatorEntry.fromJSON(object));
         }
-    }
 
-    @FunctionalInterface
-    private interface ConnectionHandler<T> {
-        T process(HttpURLConnection connection, InputStream stream) throws Exception;
-    }
-
-    @FunctionalInterface
-    private interface ConnectionPoster {
-        void post(OutputStream outputStream) throws Exception;
+        return entries;
     }
 }
