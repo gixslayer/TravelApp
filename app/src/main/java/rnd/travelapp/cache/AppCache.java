@@ -26,8 +26,9 @@ public class AppCache {
         int serverPort = resources.getInteger(R.integer.server_port);
         int maxMemorySize = resources.getInteger(R.integer.max_memory_cache_size);
         Fetcher fetcher = new HttpFetcher(serverHost, serverPort);
+        Validator validator = new HttpValidator(serverHost, serverPort);
 
-        this.diskCache = new DiskCache(fetcher, context.getCacheDir());
+        this.diskCache = new DiskCache(fetcher, validator, context.getCacheDir());
         this.memoryCache = new MemoryCache(diskCache);
         this.resourceMemoryCache = new ResourceMemoryCache(diskCache, maxMemorySize);
     }
