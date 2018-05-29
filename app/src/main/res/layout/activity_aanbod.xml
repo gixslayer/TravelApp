@@ -22,8 +22,8 @@
                 android:id="@+id/menu_btn"
                 android:layout_height="25dp"
                 android:layout_width="25dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/menu_btn_dark"/>
+                android:layout_margin="8dp"/>
+                <!--android:background="@drawable/menu_btn_dark"/>-->
                 
             <TextView
                 android:layout_width="match_parent"
@@ -50,8 +50,8 @@
             <ImageView
                 android:id="@+id/image_1"
                 android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:background="@drawable/image_1"/>
+                android:layout_height="125dp"/>
+                <!--android:background="@drawable/image_1"/>-->
                 
             <TextView
                 android:id="@+id/Title_1"

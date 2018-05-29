@@ -1,6 +1,9 @@
 package rnd.travelapp.resources;
 
+import android.content.Context;
+
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import rnd.travelapp.cache.AppCache;
 import rnd.travelapp.utils.Failable;
@@ -34,16 +37,20 @@ public abstract class Resource<T> {
         return resource != null ? resource : defaultValue;
     }
 
-    public Failable<T> getOrFetch() {
-        if(resource != null) {
-            return Failable.success(resource);
+    public void getOrFetch(Context context, Consumer<Failable<T>> onCompletion) {
+        if (resource != null) {
+            onCompletion.accept(Failable.success(resource));
         }
 
-        return AppCache.getResourceOrFetch(path, classType).processSafe(r -> {
-            resource = r.resource;
+        AppCache.getFor(context).onCompletion(cache ->
+                cache.getResourceOrFetch(path, classType).onCompletion(result ->
+                        result.consume(r -> {
+                            resource = r.resource;
 
-           return resource;
-        });
+                            onCompletion.accept(Failable.success(resource));
+                        }, cause -> {
+                            onCompletion.accept(Failable.failure(cause));
+                        })));
     }
 
     public abstract int getSize();

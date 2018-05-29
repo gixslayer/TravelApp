@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">TravelApp</string>
+    <string name="app_name">Fontana</string>
+    <string name="menu">Fontana</string>
+    <string name="aanbod">Aanbod reizen</string>
+    <string name="mijn_reizen">Mijn reizen</string>
+    <string name="reis_titel_1">Terme Olimia</string>
+    <string name="beschrijving_1">text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text.</string>
 </resources>
