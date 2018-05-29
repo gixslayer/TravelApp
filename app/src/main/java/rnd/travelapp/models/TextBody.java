@@ -10,4 +10,9 @@ public class TextBody implements TextBlock {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public <R> R accept(TextBlockVisitor<R> visitor) {
+        return visitor.visit(this);
+    }
 }

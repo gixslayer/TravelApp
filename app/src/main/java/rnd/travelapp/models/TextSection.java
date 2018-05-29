@@ -38,4 +38,13 @@ public class TextSection implements TextBlock{
     public List<TextBlock> getSubsections(){
         return subsections;
     }
+
+    public TextBlock getSubsection(int i) {
+        return subsections.get(i);
+    }
+
+    @Override
+    public <R> R accept(TextBlockVisitor<R> visitor) {
+        return visitor.visit(this);
+    }
 }
