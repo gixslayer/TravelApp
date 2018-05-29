@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import rnd.travelapp.utils.Failable;
@@ -33,13 +34,13 @@ public class HttpValidator implements Validator {
     }
 
     @Override
-    public Failable<List<ValidatorEntry>> validate(List<DiskCacheEntry> entries) {
+    public Failable<List<ValidatorEntry>> validate(Collection<DiskCacheEntry> entries) {
         return HttpUtils.doPost(hostURL,
                 stream -> postEntries(stream, entries),
                 (connection, stream) -> parseEntries(stream));
     }
 
-    private void postEntries(OutputStream stream, List<DiskCacheEntry> entries) throws JSONException, IOException {
+    private void postEntries(OutputStream stream, Collection<DiskCacheEntry> entries) throws JSONException, IOException {
         JSONArray array = new JSONArray();
 
         entries.forEach(e -> array.put(createPostEntry(e)));

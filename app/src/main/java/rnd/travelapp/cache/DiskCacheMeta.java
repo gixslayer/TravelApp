@@ -10,21 +10,28 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import rnd.travelapp.utils.CollectionUtils;
+import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.StreamUtils;
 
 public class DiskCacheMeta {
+    private static final List<ValidatorEntry> EMPTY_VALIDATOR_LIST = new ArrayList<>();
+
     private final Map<String, DiskCacheEntry> entries;
+    private final Validator validator;
     private final File meta;
     private final File root;
     private String knownLastModified;
 
-    public DiskCacheMeta(File meta, File root) {
+    public DiskCacheMeta(Validator validator, File meta, File root) {
         this.entries = new HashMap<>();
+        this.validator = validator;
         this.meta = meta;
         this.root = root;
     }
@@ -48,13 +55,37 @@ public class DiskCacheMeta {
         }
     }
 
-    public void verify() {
-
+    public Failable<List<ValidatorEntry>> verify() {
+        return validator.getLastModified().process(lastModified -> {
+           if(lastModified.equals(knownLastModified)) {
+               return Failable.success(EMPTY_VALIDATOR_LIST);
+           } else {
+               return validator.validate(entries.values());
+           }
+        });
     }
 
     public void addIfMissing(String key, File file) {
         synchronized (entries) {
             entries.putIfAbsent(key, DiskCacheEntry.fromFile(file, key));
+
+            // TODO: Is this too expensive?
+            saveMeta();
+        }
+    }
+
+    public void addOrUpdate(String key, File file, String checksum) {
+        synchronized (entries) {
+            entries.put(key, DiskCacheEntry.fromFile(file, key, checksum));
+
+            // TODO: Is this too expensive?
+            saveMeta();
+        }
+    }
+
+    public void remove(String key) {
+        synchronized (entries) {
+            entries.remove(key);
 
             // TODO: Is this too expensive?
             saveMeta();

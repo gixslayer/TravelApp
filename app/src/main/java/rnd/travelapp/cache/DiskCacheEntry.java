@@ -70,6 +70,12 @@ public class DiskCacheEntry {
         return new DiskCacheEntry(file, path, checksum, acquired);
     }
 
+    public static DiskCacheEntry fromFile(File file, String path, String checksum) {
+        Date acquired = new Date(file.lastModified());
+
+        return new DiskCacheEntry(file, path, checksum, acquired);
+    }
+
     public static DiskCacheEntry fromMeta(JSONObject meta) throws JSONException {
         String path = meta.getString("file");
         String checksum = meta.getString("checksum");

@@ -20,7 +20,7 @@ public class DiskCache implements Cache, ResourceCache {
     private final DiskCacheMeta meta;
     private final Fetcher fetcher;
 
-    public DiskCache(Fetcher fetcher, File directory) {
+    public DiskCache(Fetcher fetcher, Validator validator, File directory) {
         if(!directory.exists()) {
             throw new IllegalArgumentException("directory does not exist");
         } else if(!directory.isDirectory()) {
@@ -30,7 +30,7 @@ public class DiskCache implements Cache, ResourceCache {
         File root = new File(directory, "cache");
         File meta = new File(directory, "cache-meta.json");
 
-        this.meta = new DiskCacheMeta(root, meta);
+        this.meta = new DiskCacheMeta(validator, root, meta);
         this.fetcher = fetcher;
     }
 
@@ -39,7 +39,35 @@ public class DiskCache implements Cache, ResourceCache {
     }
 
     public void verify() {
-        meta.verify();
+        meta.verify().ifSucceeded(entries -> entries.forEach(this::processValidatorEntry));
+    }
+
+    private void processValidatorEntry(ValidatorEntry entry) {
+        String path = entry.getFile();
+        File file = meta.getFile(path);
+
+        if(entry.getStatus() == ValidatorEntry.Status.Removed) {
+            deleteFile(path, file);
+        } else {
+            fetchFile(path, file, entry.getChecksum());
+        }
+    }
+
+    private void deleteFile(String path, File file) {
+        if(file.exists() && file.isFile()) {
+            if(file.delete()) {
+                meta.remove(path);
+            } else {
+                Log.e("TRAVEL_APP", "File deletion failed");
+            }
+        }
+    }
+
+    private void fetchFile(String path, File destination, String checksum) {
+        fetcher.fetch(path, destination).consume(
+                file -> meta.addOrUpdate(path, destination, checksum),
+                failReason -> Log.e("TRAVEL_APP", "File fetch from validator entry failed", failReason)
+        );
     }
 
     private <T> Failable<T> load(File file, Class<T> type) {

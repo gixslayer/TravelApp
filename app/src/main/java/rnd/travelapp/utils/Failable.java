@@ -48,6 +48,12 @@ public class Failable<T> {
         return Optional.ofNullable(instance);
     }
 
+    public void ifSucceeded(Consumer<T> consumer) {
+        if(succeeded) {
+            consumer.accept(instance);
+        }
+    }
+
     public <U> Failable<U> process(Function<T, Failable<U>> onSuccess, Consumer<Throwable> onFailure) {
         if(succeeded) {
             return onSuccess.apply(instance);
@@ -56,6 +62,22 @@ public class Failable<T> {
 
             return Failable.failure(cause);
         }
+    }
+
+    public void consume(Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
+        if(succeeded) {
+            onSuccess.accept(instance);
+        } else {
+            onFailure.accept(cause);
+        }
+    }
+
+    public void consume(Consumer<T> onSuccess, Action onFailure) {
+        consume(onSuccess, cause -> onFailure.perform());
+    }
+
+    public void consume(Consumer<T> onSuccess) {
+        consume(onSuccess, cause -> {});
     }
 
     public <U> Failable<U> process(Function<T, Failable<U>> onSuccess, Action onFailure) {
