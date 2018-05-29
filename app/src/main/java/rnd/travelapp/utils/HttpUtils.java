@@ -38,6 +38,8 @@ public class HttpUtils {
             OutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
             poster.post(outputStream);
 
+            outputStream.flush();
+
             InputStream inputStream = new BufferedInputStream(connection.getInputStream());
             T result = handler.process(connection, inputStream);
 

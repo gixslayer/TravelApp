@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import rnd.travelapp.utils.CollectionUtils;
 import rnd.travelapp.utils.Failable;
@@ -44,12 +45,13 @@ public class DiskCacheMeta {
 
             indexDirectory(root);
 
-            // Remove meta entries that no longer exists.
-            // TODO: Can this for each remove while streaming, or does this cause an exception?
-            entries.values().stream()
-                    .filter(e -> e.getFile() != null)
+            // Remove meta entries that no longer exists. Store in copy before removing to avoid
+            // concurrent modification.
+            List<String> removedEntries = entries.values().stream()
+                    .filter(e -> e.getFile() == null)
                     .map(DiskCacheEntry::getPath)
-                    .forEach(entries::remove);
+                    .collect(Collectors.toList());
+            removedEntries.forEach(entries::remove);
 
             saveMeta();
         }
@@ -60,6 +62,9 @@ public class DiskCacheMeta {
            if(lastModified.equals(knownLastModified)) {
                return Failable.success(EMPTY_VALIDATOR_LIST);
            } else {
+               knownLastModified = lastModified;
+               saveMeta();
+
                return validator.validate(entries.values());
            }
         });
@@ -112,7 +117,7 @@ public class DiskCacheMeta {
         StringBuilder sb = new StringBuilder();
 
         for(File currentFile = file; !currentFile.equals(root); currentFile = currentFile.getParentFile()) {
-            sb.insert(0, file.getName() + "/");
+            sb.insert(0, currentFile.getName() + "/");
         }
 
         // NOTE: Assumes file is a child of root (and not equal to root).
@@ -175,7 +180,7 @@ public class DiskCacheMeta {
         String path = getPath(file);
         DiskCacheEntry metaEntry = entries.get(path);
 
-        if(metaEntry != null && metaEntry.getFile().lastModified() == file.lastModified()) {
+        if(metaEntry != null && metaEntry.getAcquired().getTime() == file.lastModified()) {
             entries.put(path, DiskCacheEntry.update(metaEntry, file));
         } else {
             entries.put(path, DiskCacheEntry.fromFile(file, path));

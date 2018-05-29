@@ -30,7 +30,7 @@ public class DiskCache implements Cache, ResourceCache {
         File root = new File(directory, "cache");
         File meta = new File(directory, "cache-meta.json");
 
-        this.meta = new DiskCacheMeta(validator, root, meta);
+        this.meta = new DiskCacheMeta(validator, meta, root);
         this.fetcher = fetcher;
     }
 

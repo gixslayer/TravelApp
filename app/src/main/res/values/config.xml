@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_host">
-        localhost
+        192.168.153.141
     </string>
     <integer name="server_port">
         8080
