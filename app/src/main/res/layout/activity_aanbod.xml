@@ -23,14 +23,14 @@
                 android:layout_height="25dp"
                 android:layout_width="25dp"
                 android:layout_margin="8dp"/>
-                <!--android:background="@drawable/menu_btn_dark"/>-->
+            <!--android:background="@drawable/menu_btn_dark"-->
+
                 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center"
-                android:text="@string/aanbod"
                 android:textSize="25dp"
                 android:textAlignment="inherit"
                 android:textColor="@color/colorPrimaryDark"/>
@@ -51,7 +51,7 @@
                 android:id="@+id/image_1"
                 android:layout_width="125dp"
                 android:layout_height="125dp"/>
-                <!--android:background="@drawable/image_1"/>-->
+            <!--android:background="@drawable/image_1"-->
                 
             <TextView
                 android:id="@+id/Title_1"
@@ -60,7 +60,6 @@
                 android:layout_toRightOf="@id/image_1"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="@string/reis_titel_1"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"/>
@@ -73,7 +72,6 @@
                 android:layout_toRightOf="@id/image_1"
                 android:layout_marginTop="0dp"
                 android:layout_marginLeft="8dp"
-                android:text="@string/beschrijving_1"
                 android:textSize="18dp"
                 android:textColor="@color/colorPrimaryDark"/>
         </RelativeLayout>
