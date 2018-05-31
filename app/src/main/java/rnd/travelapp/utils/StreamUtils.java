@@ -35,7 +35,7 @@ public class StreamUtils {
             if(bytesRead > 0) {
                 processor.process(buffer, 0, bytesRead);
             }
-        } while(bytesRead == buffer.length);
+        } while(bytesRead > 0);
     }
 
     public interface StreamProcessor {
