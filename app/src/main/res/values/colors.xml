@@ -5,4 +5,5 @@
     <color name="colorAccent">#C0CCCC</color>
     <color name="colorAccentSecondary">#B4ACA1</color>
     <color name="colorAccentOld">#489ab1</color>
+    <color name="colorBorderLight">#c3c3c3</color>
 </resources>

@@ -1,5 +1,8 @@
 package rnd.travelapp.models;
 
+import android.content.Context;
+import android.text.SpannedString;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,11 @@ public class TextSection implements TextBlock{
 
     public TextBlock getSubsection(int i) {
         return subsections.get(i);
+    }
+
+    public SpannedString getSpannedString(Context context) {
+        SpannableTextBlockVisitor spannableTextBlockVisitor = new SpannableTextBlockVisitor(context);
+        return this.accept(spannableTextBlockVisitor);
     }
 
     @Override

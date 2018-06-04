@@ -3,6 +3,7 @@ package rnd.travelapp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.SpannedString;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -117,11 +118,13 @@ public class ReisActivity extends Activity {
 
                 reisModel = new ReisModel(jsonObject);
 
-                SpannableTextBlockVisitor stbv = new SpannableTextBlockVisitor(this);
-                SpannedString algemeenString = reisModel.getAlgemeen().accept(stbv);
+                SpannedString algemeenString = reisModel.getAlgemeen().getSpannedString(this);
 
-                TextView algemeen = findViewById(R.id.text_algemeen);
-                algemeen.setText(algemeenString);
+                TextView algemeenText = findViewById(R.id.reis_beschrijving_text_algemeen);
+                ImageView headerImage = findViewById(R.id.reis_beschrijving_header_image);
+
+                algemeenText.setText(algemeenString);
+                headerImage.setImageResource(R.drawable.image_1);
 
             } catch (JSONException e) {
                 e.printStackTrace();
