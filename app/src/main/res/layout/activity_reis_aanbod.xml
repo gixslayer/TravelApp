@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AanbodActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="@color/colorAccentOld"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/menu_btn"
+                    android:layout_height="25dp"
+                    android:layout_width="25dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/menu_btn"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:text="@string/aanbod"
+                    android:textSize="25dp"
+                    android:textAlignment="inherit"
+                    android:textColor="@color/colorPrimary"/>
+                <!--android:fontFamily=""-->
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/List_aanbod_reizen"
+                android:layout_below="@id/title_bar"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </ListView>
+        </ScrollView>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

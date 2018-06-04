@@ -27,8 +27,8 @@
                     android:id="@+id/back_btn"
                     android:layout_height="25dp"
                     android:layout_width="25dp"
-                    android:layout_margin="8dp"/>
-                <!--android:background="@drawable/arrow"-->
+                    android:layout_margin="8dp"
+                    android:background="@drawable/arrow"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -43,38 +43,28 @@
     
             <!--Header Image-->
             <ImageView
-                android:id="@+id/image_main"
+                android:id="@+id/reis_beschrijving_header_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/title_bar"/>
-            <!--android:background="@drawable/image_1"-->
 
             <!--Algemeen-->
             <RelativeLayout
-                android:id="@+id/algemeen"
+                android:id="@+id/reis_beschrijving_algemeen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="vertical"
-                android:layout_below="@id/image_main">
-                
-                <!--<TextView
-                    android:id="@+id/Title_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="35dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textAlignment="center"/>-->
+                android:layout_below="@id/reis_beschrijving_header_image">
 
                 <TextView
-                    android:id="@+id/text_algemeen"
+                    android:id="@+id/reis_beschrijving_text_algemeen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"
                     android:textAlignment="inherit"/>
-                <!--android:layout_below="@id/Title_1"-->
 
             </RelativeLayout>
     
@@ -83,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/algemeen"
+                android:layout_below="@id/reis_beschrijving_algemeen"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
