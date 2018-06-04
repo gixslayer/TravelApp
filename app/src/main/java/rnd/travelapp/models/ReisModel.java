@@ -18,12 +18,12 @@ public class ReisModel {
     private List<String> tags;
 
     public ReisModel(JSONObject object) throws JSONException {
-        this.shortDescription = object.getString("shord_description");
+        this.shortDescription = object.getString("short_description");
         this.algemeen = new TextSection(object.getJSONObject("algemeen"));
         this.reisInformatie = new TextSection(object.getJSONObject("reisinformatie"));
         this.ligging = new TextSection(object.getJSONObject("ligging"));
     }
-
+    
     public String getShortDescription() {
         return shortDescription;
     }
