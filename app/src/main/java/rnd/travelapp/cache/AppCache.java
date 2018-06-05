@@ -6,8 +6,13 @@ import android.content.res.Resources;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import rnd.travelapp.R;
+import rnd.travelapp.models.ModelList;
 import rnd.travelapp.resources.Resource;
 import rnd.travelapp.threading.Task;
 import rnd.travelapp.threading.VoidTask;
@@ -44,6 +49,39 @@ public class AppCache {
         diskCache.verify();
     }
 
+    private <T> Failable<Map<String, T>> awaitTasks(Map<String, Future<Failable<T>>> tasks) {
+        Map<String, T> results = new HashMap<>();
+
+        for(String key : tasks.keySet()) {
+            Future<Failable<T>> task = tasks.get(key);
+
+            try {
+                Failable<T> result = task.get();
+
+                if(result.hasFailed()) {
+                    return Failable.failure(result.getCause());
+                } else {
+                    results.put(key, result.get());
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                return Failable.failure(e);
+            }
+        }
+
+        return Failable.success(results);
+    }
+
+    private <T> Failable<Map<String, T>> doGetOrFetchFromList(ModelList list, Class<T> type) {
+        Map<String, Future<Failable<T>>> tasks = new HashMap<>();
+        ExecutorService executor = Executors.newCachedThreadPool();
+
+        list.forEach(key -> tasks.put(key, executor.submit(() -> memoryCache.getOrFetch(key, type))));
+
+        executor.shutdown();
+
+        return awaitTasks(tasks);
+    }
+
     public VoidTask verify() {
         return Task.create(this::doVerify);
     }
@@ -58,6 +96,14 @@ public class AppCache {
 
     public <T> Task<Failable<T>> getOrFetch(String key, Class<T> type) {
         return Task.create(() -> memoryCache.getOrFetch(key, type));
+    }
+
+    public <T> Task<Failable<Map<String, T>>> getOrFetchList(String listKey, Class<T> type) {
+        return Task.create(() -> memoryCache.getOrFetch(listKey, ModelList.class).process(list -> doGetOrFetchFromList(list, type)));
+    }
+
+    public <T> Task<Failable<Map<String, T>>> getOrFetchFromList(ModelList list, Class<T> type) {
+        return Task.create(() -> doGetOrFetchFromList(list, type));
     }
 
     public <T> Task<Optional<Resource<T>>> getResource(String key, Class<? extends Resource<T>> type) {
