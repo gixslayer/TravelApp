@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.locks.ReentrantLock;
 
 import rnd.travelapp.R;
 import rnd.travelapp.models.ModelList;
@@ -24,6 +25,8 @@ public class AppCache {
     private final DiskCache diskCache;
     private final MemoryCache memoryCache;
     private final ResourceMemoryCache resourceMemoryCache;
+    private final ReentrantLock initializeLock;
+    private boolean initialized;
 
     private AppCache(Context context) {
         Resources resources = context.getResources();
@@ -36,16 +39,26 @@ public class AppCache {
         this.diskCache = new DiskCache(fetcher, validator, context.getCacheDir());
         this.memoryCache = new MemoryCache(diskCache);
         this.resourceMemoryCache = new ResourceMemoryCache(diskCache, maxMemorySize);
+        this.initializeLock = new ReentrantLock();
+        this.initialized = false;
     }
 
     private AppCache initialize() {
-        diskCache.index();
+        initializeLock.lock();
+
+        try {
+            if(!initialized) {
+                diskCache.index();
+                initialized = true;
+            }
+        } finally {
+            initializeLock.unlock();
+        }
 
         return this;
     }
 
     private void doVerify() {
-
         diskCache.verify();
     }
 
@@ -84,6 +97,10 @@ public class AppCache {
 
     public VoidTask verify() {
         return Task.create(this::doVerify);
+    }
+
+    public void saveChanges() {
+        Task.run(diskCache::saveChanges);
     }
 
     public <T> Task<Optional<T>> get(String key, Class<T> type) {

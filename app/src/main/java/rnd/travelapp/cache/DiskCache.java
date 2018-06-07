@@ -42,6 +42,10 @@ public class DiskCache implements Cache, ResourceCache {
         meta.verify().ifSucceeded(entries -> entries.forEach(this::processValidatorEntry));
     }
 
+    public void saveChanges() {
+        meta.saveChanges();
+    }
+
     private void processValidatorEntry(ValidatorEntry entry) {
         String path = entry.getFile();
         File file = meta.getFile(path);

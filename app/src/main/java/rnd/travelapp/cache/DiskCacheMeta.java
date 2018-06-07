@@ -73,27 +73,18 @@ public class DiskCacheMeta {
     public void addIfMissing(String key, File file) {
         synchronized (entries) {
             entries.putIfAbsent(key, DiskCacheEntry.fromFile(file, key));
-
-            // TODO: Is this too expensive?
-            saveMeta();
         }
     }
 
     public void addOrUpdate(String key, File file, String checksum) {
         synchronized (entries) {
             entries.put(key, DiskCacheEntry.fromFile(file, key, checksum));
-
-            // TODO: Is this too expensive?
-            saveMeta();
         }
     }
 
     public void remove(String key) {
         synchronized (entries) {
             entries.remove(key);
-
-            // TODO: Is this too expensive?
-            saveMeta();
         }
     }
 
@@ -122,6 +113,12 @@ public class DiskCacheMeta {
 
         // NOTE: Assumes file is a child of root (and not equal to root).
         return sb.substring(0, sb.length() - 1);
+    }
+
+    public void saveChanges() {
+        synchronized (meta) {
+            saveMeta();
+        }
     }
 
     private void loadMeta() {
