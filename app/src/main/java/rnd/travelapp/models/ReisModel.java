@@ -1,7 +1,5 @@
 package rnd.travelapp.models;
 
-import android.text.SpannedString;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,9 +37,9 @@ public class ReisModel {
     private final BitmapResource hotelsAfbeelding;
     private final String hotelsTitel;
     private final String hotelsKorteBeschrijving;
-    private final SpannedString hotelsLangeBeschrijving;
+    private final TextSection hotelsLangeBeschrijving;
 
-    public ReisModel(List<String> tags, BitmapResource reisAfbeelding, String reisTitel, String reisType, String reisKorteBeschrijving, String reisAlgemeneBeschrijving, BitmapResource kurenAfbeelding, String kurenTitel, String kurenKorteBeschrijving, String kurenLangeBeschrijving, Map<String, String> kuren, BitmapResource omgevingAfbeelding, String omgevingTitel, String omgevingKorteBeschrijving, String omgevingLangeBeschrijving, BitmapResource hotelsAfbeelding, String hotelsTitel, String hotelsKorteBeschrijving, SpannedString hotelsLangeBeschrijving) {
+    public ReisModel(List<String> tags, BitmapResource reisAfbeelding, String reisTitel, String reisType, String reisKorteBeschrijving, String reisAlgemeneBeschrijving, BitmapResource kurenAfbeelding, String kurenTitel, String kurenKorteBeschrijving, String kurenLangeBeschrijving, Map<String, String> kuren, BitmapResource omgevingAfbeelding, String omgevingTitel, String omgevingKorteBeschrijving, String omgevingLangeBeschrijving, BitmapResource hotelsAfbeelding, String hotelsTitel, String hotelsKorteBeschrijving, TextSection hotelsLangeBeschrijving) {
         this.tags = tags;
         this.reisAfbeelding = reisAfbeelding;
         this.reisTitel = reisTitel;
@@ -117,7 +115,7 @@ public class ReisModel {
     public String getHotelsKorteBeschrijving() {
         return hotelsKorteBeschrijving;
     }
-    public SpannedString getHotelsLangeBeschrijving() {
+    public TextSection getHotelsLangeBeschrijving() {
         return hotelsLangeBeschrijving;
     }
 
@@ -148,7 +146,7 @@ public class ReisModel {
             BitmapResource hotelsAfbeelding = new BitmapResource(object.getJSONObject("hotels").getString("afbeelding"));
             String hotelsTitel = object.getJSONObject("hotels").getString("titel");
             String hotelsKorteBeschrijving = object.getJSONObject("hotels").getString("korte_beschrijving");
-            SpannedString hotelsLangeBeschrijving = new TextSection(object.getJSONObject("hotels")).getSpannedString(null);
+            TextSection hotelsLangeBeschrijving = new TextSection(object.getJSONObject("hotels"));
 
             return new ReisModel(tags, reisAfbeelding, reisTitel, reisType, reisKorteBeschrijving, reisAlgemeneBeschrijving, kurenAfbeelding, kurenTitel, kurenKorteBeschrijving, kurenLangeBeschrijving, kuren, omgevingAfbeelding, omgevingTitel, omgevingKorteBeschrijving, omgevingLangeBeschrijving, hotelsAfbeelding, hotelsTitel, hotelsKorteBeschrijving, hotelsLangeBeschrijving);
         }

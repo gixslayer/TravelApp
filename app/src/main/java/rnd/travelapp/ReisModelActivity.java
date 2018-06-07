@@ -79,7 +79,7 @@ public class ReisModelActivity extends CacheActivity {
         omgevingLangeBeschrijving.setText(reisModel.getOmgevingLangeBeschrijving());
         hotelsTitel.setText(reisModel.getHotelsTitel());
         hotelsKorteBeschrijving.setText(reisModel.getHotelsKorteBeschrijving());
-        hotelsLangeBeschrijving.setText(reisModel.getHotelsLangeBeschrijving());
+        hotelsLangeBeschrijving.setText(reisModel.getHotelsLangeBeschrijving().getSpannedString(this));
 
         // HIER MOETEN NOG DE KUUR BUTTONS LISTENERS KRIJGEN
     }
