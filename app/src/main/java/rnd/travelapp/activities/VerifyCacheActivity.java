@@ -1,4 +1,4 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 
 public abstract class VerifyCacheActivity extends CacheActivity {

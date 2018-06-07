@@ -1,10 +1,11 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import rnd.travelapp.R;
 import rnd.travelapp.adapters.TestModelAdapter;
 import rnd.travelapp.models.TestModel;
 

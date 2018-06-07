@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestModelActivity">
+    tools:context=".activities.TestModelActivity">
 
     <ImageView
         android:id="@+id/test_model_image"

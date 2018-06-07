@@ -1,9 +1,10 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import rnd.travelapp.R;
 import rnd.travelapp.models.TestModel;
 
 public class TestModelActivity extends CacheActivity {

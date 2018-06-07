@@ -1,19 +1,13 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import rnd.travelapp.R;
 import rnd.travelapp.adapters.ReisModelAdapter;
 import rnd.travelapp.models.ReisModel;
-import rnd.travelapp.utils.Failable;
 
 public class ReisAanbodActivity extends CacheActivity {
     private ListView listView;

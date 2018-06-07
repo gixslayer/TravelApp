@@ -1,4 +1,4 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import rnd.travelapp.R;
 import rnd.travelapp.models.ReisModel;
 
 public class ReisModelActivity extends CacheActivity {
