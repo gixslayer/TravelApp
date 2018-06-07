@@ -25,7 +25,7 @@ public class Failable<T> {
     }
 
     public Throwable getCause() {
-        if(!succeeded) {
+        if(succeeded) {
             throw new IllegalStateException("The operation did not fail");
         }
 
