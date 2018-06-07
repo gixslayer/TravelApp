@@ -1,7 +1,6 @@
 package rnd.travelapp.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +10,7 @@ import java.util.List;
 import rnd.travelapp.R;
 import rnd.travelapp.models.ReisModel;
 
-public class ReisModelActivity extends CacheActivity {
+public class ReisModelActivity extends ModelActivity<ReisModel> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +19,7 @@ public class ReisModelActivity extends CacheActivity {
     }
 
     @Override
-    protected void onCacheInitialized() {
-        String key = getIntent().getStringExtra("model");
-
-        appCache.getOrFetch(key, ReisModel.class).onCompletion(result ->
-                result.consume(this::populateFromModel, this::handleMissingModel));
-    }
-
-    private void populateFromModel(ReisModel reisModel) {
+    protected void populateFromModel(ReisModel reisModel) {
         ImageView reisAfbeelding = findViewById(R.id.reis_afbeelding);
         TextView reisTitel = findViewById(R.id.reis_titel);
         TextView reisType = findViewById(R.id.reis_type);
@@ -77,11 +69,8 @@ public class ReisModelActivity extends CacheActivity {
         // HIER MOETEN NOG DE KUUR BUTTONS LISTENERS KRIJGEN
     }
 
-    private void handleMissingModel(Throwable cause) {
-        String key = getIntent().getStringExtra("model");
-
-        Log.e("TRAVEL_APP", "Missing model: " + key, cause);
-
-        finish();
+    @Override
+    protected Class<ReisModel> getModelType() {
+        return ReisModel.class;
     }
 }
