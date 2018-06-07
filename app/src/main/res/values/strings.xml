@@ -5,4 +5,7 @@
     <string name="mijn_reizen">Mijn reizen</string>
     <string name="reis_titel_1">Terme Olimia</string>
     <string name="beschrijving_1">text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text.</string>
+    <string name="reizen">Reizen</string>
+    <string name="kuren">Kuren</string>
+    <string name="reis_beschrijving">Reis Beschrijving</string>
 </resources>
