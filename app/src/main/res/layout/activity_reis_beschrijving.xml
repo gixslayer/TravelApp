@@ -1,144 +1,406 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReisActivity">
+    tools:context=".ReisModelActivity">
 
-    <ScrollView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <RelativeLayout
+
+        <!--Title Bar-->
+        <LinearLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@color/colorAccentOld"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/arrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:textAlignment="inherit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp"
+                android:text="@string/reis_beschrijving"/>
+            <!--android:fontFamily=""-->
+
+        </LinearLayout>
+
+        <!--Body-->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_below="@id/title_bar">
 
-            <!--Title Bar-->
-            <LinearLayout
-                android:id="@+id/title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:background="@color/colorAccentOld"
-                android:orientation="horizontal">
-    
-                <Button
-                    android:id="@+id/back_btn"
-                    android:layout_height="25dp"
-                    android:layout_width="25dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/arrow"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center"
-                    android:textSize="25dp"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/colorPrimary"/>
-                <!--android:fontFamily=""-->
-            </LinearLayout>
-    
-            <!--Header Image-->
-            <ImageView
-                android:id="@+id/reis_beschrijving_header_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@id/title_bar"/>
-
-            <!--Algemeen-->
             <RelativeLayout
-                android:id="@+id/reis_beschrijving_algemeen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:layout_below="@id/reis_beschrijving_header_image">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/reis_beschrijving_text_algemeen"
+                <!--reis_algemeen-->
+                <LinearLayout
+                    android:id="@+id/reis_algemeen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textAlignment="inherit"/>
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
 
-            </RelativeLayout>
-    
-            <RelativeLayout
-                android:id="@+id/tekstveld_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/reis_beschrijving_algemeen"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                
-                <TextView
-                    android:id="@+id/kop_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:textAlignment="inherit"/>
-                <TextView
-                    android:id="@+id/text_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/kop_1"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textAlignment="inherit"/>
-    
-            </RelativeLayout>
-    
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_below="@id/tekstveld_1"
-                android:layout_marginTop="10dp">
-    
-                <ImageView
-                    android:id="@+id/image_kuur"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"/>
-                    <!--android:background="@drawable/kuur_aanbod"-->
-    
+                    <ImageView
+                        android:id="@+id/reis_afbeelding"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:background="@drawable/igalo_montenegro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/reis_titel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="35sp" />
+
+                        <TextView
+                            android:id="@+id/reis_aangeboden_kuren"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/reis_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/reis_algemene_beschrijving"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--reis_kuren-->
                 <RelativeLayout
-                    android:id="@+id/kuur_progr"
+                    android:id="@+id/reis_kuren"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    
-                    <TextView
-                        android:id="@+id/kop_kuur"
+                    android:layout_below="@id/reis_algemeen"
+                    android:layout_margin="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/kuren_preview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kuurprogramma's"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAlignment="inherit"/>
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/kuren_korte_tekst"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/kuren_afbeelding"
+                            android:orientation="vertical"
+                            android:textAlignment="viewEnd">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:textAlignment="inherit">
+
+                                <ImageButton
+                                    android:id="@+id/btn_expand_kuren"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="bottom"
+                                    android:background="@drawable/expand_btn_dark" />
+
+                                <TextView
+                                    android:id="@+id/kuren_titel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/btn_expand_kuren"
+                                    android:textAlignment="inherit"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/kuren_korte_beschrijving"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="inherit"
+                                android:textColor="@color/colorPrimaryDark" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:id="@+id/kuren_afbeelding"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
                     <TextView
-                        android:id="@+id/beschrijving_kuur"
+                        android:id="@+id/kuren_lange_beschrijving"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/kop_kuur"
-                        android:layout_marginLeft="10dp"
+                        android:layout_below="@id/kuren_preview"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textAlignment="inherit"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textAlignment="inherit"/>
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+
+                    <View
+                        android:layout_width="325dp"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/colorPrimaryDark" />
                 </RelativeLayout>
-    
-            </LinearLayout>
-    
-        </RelativeLayout>
-    </ScrollView>
+
+                <!--reis_omgeving-->
+                <RelativeLayout
+                    android:id="@+id/reis_omgeving"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reis_kuren"
+                    android:layout_margin="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/omgeving_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/omgeving_korte_tekst"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/omgeving_afbeelding"
+                            android:orientation="vertical"
+                            android:textAlignment="viewStart">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:textAlignment="inherit">
+
+                                <TextView
+                                    android:id="@+id/omgeving_titel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_toLeftOf="@id/btn_expand_omgeving"
+                                    android:textAlignment="inherit"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_expand_omgeving"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/expand_btn_dark" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/omgeving_korte_beschrijving"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="inherit"
+                                android:textColor="@color/colorPrimaryDark" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:id="@+id/omgeving_afbeelding"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/omgeving_lange_beschrijving"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/omgeving_preview"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textAlignment="inherit"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/divider_bar"
+                        android:layout_width="325dp"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/colorPrimaryDark" />
+                </RelativeLayout>
+
+                <!--reis_hotels-->
+                <RelativeLayout
+                    android:id="@+id/reis_hotels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reis_omgeving"
+                    android:layout_margin="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/hotels_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/hotels_korte_tekst"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/hotels_afbeelding"
+                            android:orientation="vertical"
+                            android:textAlignment="viewEnd">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:textAlignment="inherit">
+
+                                <ImageButton
+                                    android:id="@+id/btn_expand_hotels"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="bottom"
+                                    android:background="@drawable/expand_btn_dark" />
+
+                                <TextView
+                                    android:id="@+id/hotels_titel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/btn_expand_hotels"
+                                    android:textAlignment="inherit"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/hotels_korte_beschrijving"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="inherit"
+                                android:textColor="@color/colorPrimaryDark" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:id="@+id/hotels_afbeelding"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/hotels_lange_beschrijving"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hotels_preview"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textAlignment="inherit"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+
+                    <View
+                        android:layout_width="325dp"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/colorPrimaryDark" />
+                </RelativeLayout>
+
+                <!--footer-->
+                <RelativeLayout
+                    android:id="@+id/footer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reis_hotels"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp">
+
+                    <ImageView
+                        android:id="@+id/copyright"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/copyright" />
+
+                    <TextView
+                        android:id="@+id/copyright_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/copyright"
+                        android:text="fontana-travel"
+                        android:textColor="@color/colorAccent" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
