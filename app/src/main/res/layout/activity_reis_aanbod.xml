@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AanbodActivity">
+    tools:context=".ReisAanbodActivity">
+
 
 
     <RelativeLayout
@@ -12,47 +13,62 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/reis_aanbod_menu_drawer"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/title_bar"
+
+        </android.support.v4.widget.DrawerLayout>
+
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccentOld">
+
+            <!--Menu Button-->
+            <Button
+                android:id="@+id/menu_btn"
+                android:layout_height="25dp"
+                android:layout_width="25dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/menu_btn"/>
+
+            <!--Menu Bar Text-->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:background="@color/colorAccentOld"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:text="@string/aanbod"
+                android:textSize="25sp"
+                android:textAlignment="inherit"
+                android:textColor="@color/colorPrimary"/>
+            <!--android:fontFamily=""-->
+        </Toolbar>
 
-                <Button
-                    android:id="@+id/menu_btn"
-                    android:layout_height="25dp"
-                    android:layout_width="25dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/menu_btn"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center"
-                    android:text="@string/aanbod"
-                    android:textSize="25dp"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/colorPrimary"/>
-                <!--android:fontFamily=""-->
+        <!--Menu Bar-->
+        <!--<LinearLayout
+            android:layout_below="@id/toolbar"
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@color/colorAccentOld"
+            android:orientation="horizontal">
 
-            </LinearLayout>
 
-            <ListView
-                android:id="@+id/List_aanbod_reizen"
-                android:layout_below="@id/title_bar"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </ListView>
-        </ScrollView>
+
+        </LinearLayout>-->
+
+        <ListView
+            android:id="@+id/list_reis_aanbod"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>
