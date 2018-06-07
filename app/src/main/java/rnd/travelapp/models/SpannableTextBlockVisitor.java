@@ -25,7 +25,7 @@ public class SpannableTextBlockVisitor implements TextBlockVisitor<SpannedString
         SpannableString titel = new SpannableString(textSection.getTitel());
         titel.setSpan(new TextAppearanceSpan(context, HeaderStyles.get(headerType)), 0, titel.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(titel);
-        ssb.append('\n');
+        ssb.append(!titel.toString().isEmpty() ? "\n" : "");
 
         for (TextBlock tb : textSection.getSubsections()) {
             headerType++;
