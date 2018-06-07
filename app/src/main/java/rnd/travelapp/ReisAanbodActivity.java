@@ -2,6 +2,7 @@ package rnd.travelapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class ReisAanbodActivity extends CacheActivity {
                 adapter = new ReisModelAdapter(models, this);
                 listView.setAdapter(adapter);
                 listView.invalidateViews();
-            });
+            }, cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause));
         });
     }
 }
