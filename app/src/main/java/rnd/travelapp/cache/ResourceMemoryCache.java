@@ -29,7 +29,7 @@ public class ResourceMemoryCache implements ResourceCache {
         Resource resource = resources.get(key);
 
         if(resource != null) {
-            Class<?> resourceType = resource.getResourceType();
+            Class<?> resourceType = resource.getClass(); //getResourceType();
 
             if(!resourceType.equals(type)) {
                 throw new IllegalArgumentException(String.format(
