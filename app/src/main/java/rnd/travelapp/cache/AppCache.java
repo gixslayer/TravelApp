@@ -2,6 +2,7 @@ package rnd.travelapp.cache;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,13 +70,10 @@ public class AppCache {
             Future<Failable<T>> task = tasks.get(key);
 
             try {
-                Failable<T> result = task.get();
-
-                if(result.hasFailed()) {
-                    return Failable.failure(result.getCause());
-                } else {
-                    results.put(key, result.get());
-                }
+                task.get().consume(
+                        result -> results.put(key, result),
+                        cause -> Log.e("TRAVEL_APP", String.format("Fetch task for file %s failed", key), cause)
+                );
             } catch (InterruptedException | ExecutionException e) {
                 return Failable.failure(e);
             }
