@@ -28,7 +28,7 @@ public class ReisAanbodActivity extends CacheActivity {
         listView = findViewById(R.id.list_reis_aanbod);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(this, ReisModelActivity.class);
-            intent.putExtra("model", adapter.getModelName(i));
+            intent.putExtra("model", adapter.getModelPath(i));
 
             startActivity(intent);
         });
@@ -36,7 +36,7 @@ public class ReisAanbodActivity extends CacheActivity {
 
     @Override
     protected void onCacheInitialized() {
-        appCache.getOrFetchList("models/reismodel/list.json", ReisModel.class).onCompletion((Failable<Map<String, ReisModel>> result) -> {
+        appCache.getOrFetchList("models/reismodel/list.json", ReisModel.class).onCompletion(result -> {
             result.consume(models -> {
                 adapter = new ReisModelAdapter(models, this);
                 listView.setAdapter(adapter);

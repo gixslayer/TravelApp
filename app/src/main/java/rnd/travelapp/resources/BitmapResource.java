@@ -1,7 +1,10 @@
 package rnd.travelapp.resources;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +26,12 @@ public class BitmapResource extends Resource<Bitmap> {
     @Override
     public int getSize() {
         return resource != null ? resource.getAllocationByteCount() : 0;
+    }
+
+    public void getOrFetchToImageView(Context context, ImageView imageView) {
+        getOrFetch(context, result -> result.consume(imageView::setImageBitmap, cause -> {
+            Log.e("TRAVEL_APP", "Could not fetch image", cause);
+        }));
     }
 
     protected static class Loader implements BinaryLoader<Bitmap> {

@@ -2,6 +2,7 @@ package rnd.travelapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import rnd.travelapp.adapters.TestModelAdapter;
@@ -19,7 +20,7 @@ public class MainActivity extends VerifyCacheActivity {
         listView = findViewById(R.id.list_main);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(this, TestModelActivity.class);
-            intent.putExtra("model", adapter.getModelName(i));
+            intent.putExtra("model", adapter.getModelPath(i));
 
             startActivity(intent);
         });
@@ -32,7 +33,7 @@ public class MainActivity extends VerifyCacheActivity {
                 adapter = new TestModelAdapter(models, this);
                 listView.setAdapter(adapter);
                 listView.invalidateViews();
-            });
+            }, cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause));
         });
     }
 }

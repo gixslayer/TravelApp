@@ -45,18 +45,10 @@ public class ReisModelActivity extends CacheActivity {
         TextView hotelsKorteBeschrijving = findViewById(R.id.hotels_korte_beschrijving);
         TextView hotelsLangeBeschrijving = findViewById(R.id.hotels_lange_beschrijving);
 
-        reisModel.getReisAfbeelding().getOrFetch(this, result -> result.consume(reisAfbeelding::setImageBitmap, cause -> {
-            Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
-        reisModel.getKurenAfbeelding().getOrFetch(this, result -> result.consume(kurenAfbeelding::setImageBitmap, cause -> {
-            Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
-        reisModel.getOmgevingAfbeelding().getOrFetch(this, result -> result.consume(omgevingAfbeelding::setImageBitmap, cause -> {
-            Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
-        reisModel.getHotelsAfbeelding().getOrFetch(this, result -> result.consume(hotelsAfbeelding::setImageBitmap, cause -> {
-            Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
+        reisModel.getReisAfbeelding().getOrFetchToImageView(this, reisAfbeelding);
+        reisModel.getKurenAfbeelding().getOrFetchToImageView(this, kurenAfbeelding);
+        reisModel.getOmgevingAfbeelding().getOrFetchToImageView(this, omgevingAfbeelding);
+        reisModel.getHotelsAfbeelding().getOrFetchToImageView(this, hotelsAfbeelding);
 
         List<String> kuren = new ArrayList<>(reisModel.getKuren().keySet());
         if (!kuren.isEmpty()) {
