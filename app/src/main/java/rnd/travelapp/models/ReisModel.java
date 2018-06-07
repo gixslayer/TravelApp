@@ -121,8 +121,9 @@ public class ReisModel {
 
     public static String jsonArrayToString (JSONArray array) throws JSONException {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length(); i++)
-            sb.append(array.getString(i)).append("\n\n");
+        if (array != null && array.length() > 0)
+            for (int i = 0; i < array.length(); i++)
+                sb.append(array.getString(i)).append("\n\n");
         return sb.toString();
     }
 
