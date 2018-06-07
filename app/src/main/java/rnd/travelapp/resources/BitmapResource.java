@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
 
+import rnd.travelapp.cache.AppCache;
 import rnd.travelapp.serialization.BinaryLoadable;
 import rnd.travelapp.serialization.BinaryLoader;
 
@@ -30,7 +31,13 @@ public class BitmapResource extends Resource<Bitmap> {
 
     public void getOrFetchToImageView(Context context, ImageView imageView) {
         getOrFetch(context, result -> result.consume(imageView::setImageBitmap, cause -> {
-            Log.e("TRAVEL_APP", "Could not fetch image", cause);
+            //Log.e("TRAVEL_APP", "Could not fetch image", cause);
+        }));
+    }
+
+    public void getOrFetchToImageView(AppCache cache, ImageView imageView) {
+        getOrFetch(cache, result -> result.consume(imageView::setImageBitmap, cause -> {
+            //Log.e("TRAVEL_APP", "Could not fetch image", cause);
         }));
     }
 

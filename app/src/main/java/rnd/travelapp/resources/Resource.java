@@ -42,15 +42,17 @@ public abstract class Resource<T> {
             onCompletion.accept(Failable.success(resource));
         }
 
-        AppCache.getFor(context).onCompletion(cache ->
-                cache.getResourceOrFetch(path, classType).onCompletion(result ->
-                        result.consume(r -> {
-                            resource = r.resource;
+        AppCache.getFor(context.getApplicationContext()).onCompletion(cache -> getOrFetch(cache, onCompletion));
+    }
 
-                            onCompletion.accept(Failable.success(resource));
-                        }, cause -> {
-                            onCompletion.accept(Failable.failure(cause));
-                        })));
+    public void getOrFetch(AppCache cache, Consumer<Failable<T>> onCompletion) {
+        if (resource != null) {
+            onCompletion.accept(Failable.success(resource));
+        }
+
+        cache.getResourceOrFetch(path, classType).onCompletion(result -> {
+            onCompletion.accept(result.processSafe(r -> resource = r.resource));
+        });
     }
 
     public abstract int getSize();

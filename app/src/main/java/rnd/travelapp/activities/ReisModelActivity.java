@@ -38,10 +38,10 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
         TextView hotelsKorteBeschrijving = findViewById(R.id.hotels_korte_beschrijving);
         TextView hotelsLangeBeschrijving = findViewById(R.id.hotels_lange_beschrijving);
 
-        reisModel.getReisAfbeelding().getOrFetchToImageView(this, reisAfbeelding);
-        reisModel.getKurenAfbeelding().getOrFetchToImageView(this, kurenAfbeelding);
-        reisModel.getOmgevingAfbeelding().getOrFetchToImageView(this, omgevingAfbeelding);
-        reisModel.getHotelsAfbeelding().getOrFetchToImageView(this, hotelsAfbeelding);
+        reisModel.getReisAfbeelding().getOrFetchToImageView(appCache, reisAfbeelding);
+        reisModel.getKurenAfbeelding().getOrFetchToImageView(appCache, kurenAfbeelding);
+        reisModel.getOmgevingAfbeelding().getOrFetchToImageView(appCache, omgevingAfbeelding);
+        reisModel.getHotelsAfbeelding().getOrFetchToImageView(appCache, hotelsAfbeelding);
 
         List<String> kuren = new ArrayList<>(reisModel.getKuren().keySet());
         if (!kuren.isEmpty()) {

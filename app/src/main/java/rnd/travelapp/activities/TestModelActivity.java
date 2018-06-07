@@ -18,7 +18,7 @@ public class TestModelActivity extends ModelActivity<TestModel> {
     protected void populateFromModel(TestModel model) {
         ImageView view = findViewById(R.id.test_model_image);
 
-        model.getBitmap().getOrFetchToImageView(this, view);
+        model.getBitmap().getOrFetchToImageView(appCache, view);
     }
 
     @Override
