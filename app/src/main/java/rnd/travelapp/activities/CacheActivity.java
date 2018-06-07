@@ -1,4 +1,4 @@
-package rnd.travelapp;
+package rnd.travelapp.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
