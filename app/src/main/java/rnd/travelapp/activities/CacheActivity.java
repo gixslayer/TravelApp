@@ -15,7 +15,7 @@ public abstract class CacheActivity extends Activity {
 
         onBeginCacheInitialization();
 
-        AppCache.getFor(this).onCompletion(cache -> {
+        AppCache.getFor(getApplicationContext()).onCompletion(cache -> {
             appCache = cache;
 
             onCacheInitialized();

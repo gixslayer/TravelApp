@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class DiskCacheMeta {
     private final Validator validator;
     private final File meta;
     private final File root;
-    private String knownLastModified;
+    private volatile String knownLastModified;
 
     public DiskCacheMeta(Validator validator, File meta, File root) {
         this.entries = new HashMap<>();
@@ -63,6 +64,7 @@ public class DiskCacheMeta {
                return Failable.success(EMPTY_VALIDATOR_LIST);
            } else {
                knownLastModified = lastModified;
+
                saveMeta();
 
                return validator.validate(entries.values());
@@ -116,14 +118,12 @@ public class DiskCacheMeta {
     }
 
     public void saveChanges() {
-        synchronized (meta) {
-            saveMeta();
-        }
+        saveMeta();
     }
 
     private void loadMeta() {
-        try(FileInputStream stream = new FileInputStream(meta)) {
-            String json = StreamUtils.toString(stream);
+        try {
+            String json = loadFromMetaFile();
             JSONObject metaObject = new JSONObject(json);
 
             knownLastModified = metaObject.getString("knownLastModified");
@@ -149,19 +149,36 @@ public class DiskCacheMeta {
                 metaFiles.put(entry.toMeta());
             }
 
-            metaObject.put("knownLastModified", knownLastModified);
+            metaObject.put("knownLastModified", knownLastModified == null ? "" : knownLastModified);
             metaObject.put("files", metaFiles);
 
-            try (FileOutputStream stream = new FileOutputStream(meta)) {
-                String json = metaObject.toString(2);
-                byte[] data = json.getBytes("UTF-8");
+            String json = metaObject.toString(2);
 
-                stream.write(data);
+            try {
+                writeToMetaFile(json);
             } catch (IOException e) {
                 Log.e("CACHE_APP", "Error writing cache meta file", e);
             }
         } catch (JSONException e) {
             Log.e("CACHE_APP", "Error saving cache meta file", e);
+        }
+    }
+
+    private String loadFromMetaFile() throws IOException {
+        synchronized (meta) {
+            try (FileInputStream stream = new FileInputStream(meta)) {
+                return StreamUtils.toString(stream);
+            }
+        }
+    }
+
+    private void writeToMetaFile(String string) throws IOException {
+        byte[] data = string.getBytes(StandardCharsets.UTF_8);
+
+        synchronized (meta) {
+            try (FileOutputStream stream = new FileOutputStream(meta)) {
+                stream.write(data);
+            }
         }
     }
 
