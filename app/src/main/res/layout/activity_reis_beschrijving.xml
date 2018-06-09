@@ -6,43 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.ReisModelActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!--Title Bar-->
-        <LinearLayout
-            android:id="@+id/title_bar"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:background="@color/colorAccentOld"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/arrow" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:textAlignment="inherit"
-                android:textColor="@color/colorPrimary"
-                android:textSize="25dp"
-                android:text="@string/reis_beschrijving"/>
-            <!--android:fontFamily=""-->
-
-        </LinearLayout>
-
         <!--Body-->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title_bar">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -402,5 +369,4 @@
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
