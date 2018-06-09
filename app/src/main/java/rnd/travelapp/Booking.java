@@ -14,8 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import rnd.travelapp.threading.FailableTask;
 import rnd.travelapp.threading.Task;
-import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.HttpUtils;
 import rnd.travelapp.utils.StreamUtils;
 
@@ -28,8 +28,8 @@ public class Booking {
         this.exampleParam = exampleParam;
     }
 
-    public Task<Failable<Integer>> send() {
-        return Task.create(() -> HttpUtils.doPost(bookURL, this::postData, this::parseResponse));
+    public FailableTask<Integer> send() {
+        return Task.createFailable(() -> HttpUtils.doPost(bookURL, this::postData, this::parseResponse));
     }
 
     private void postData(OutputStream stream) throws IOException, JSONException {
