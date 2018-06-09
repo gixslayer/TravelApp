@@ -6,9 +6,10 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import rnd.travelapp.utils.Action;
+import rnd.travelapp.utils.Failable;
 
 public class Task<T> {
-    private final Supplier<T> task;
+    protected final Supplier<T> task;
 
     Task(Supplier<T> task) {
         this.task = task;
@@ -24,6 +25,10 @@ public class Task<T> {
 
     public static VoidTask create(Action task) {
         return new VoidTask(task);
+    }
+
+    public static <U> FailableTask<U> createFailable(Supplier<Failable<U>> task) {
+        return new FailableTask<>(task);
     }
 
     public static void run(Action task, Action onCompletion) {
@@ -44,6 +49,18 @@ public class Task<T> {
 
     public static <T> void run(Supplier<T> task) {
         run(task, () -> {});
+    }
+
+    public static <T> void runFailable(Supplier<Failable<T>> task, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
+        createFailable(task).onSuccess(onSuccess).orOnFailure(onFailure);
+    }
+
+    public static <T> void runFailable(Supplier<Failable<T>> task, Consumer<T> onSuccess, Action onFailure) {
+        runFailable(task, onSuccess, cause -> onFailure.perform());
+    }
+
+    public static <T> void runFailable(Supplier<Failable<T>> task, Consumer<T> onSuccess) {
+        runFailable(task, onSuccess, () -> {});
     }
 
     private static class TaskWrapper<T> extends AsyncTask<Void, Void, T> {
