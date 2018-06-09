@@ -9,8 +9,9 @@ public abstract class ModelActivity<T> extends CacheActivity {
     protected void onCacheInitialized() {
         String key = getIntent().getStringExtra(MODEL_KEY);
 
-        appCache.getOrFetch(key, getModelType()).onCompletion(result ->
-                result.consume(this::populateFromModel, this::handleMissingModel));
+        appCache.getOrFetch(key, getModelType())
+                .onSuccess(this::populateFromModel)
+                .orOnFailure(this::handleMissingModel);
     }
 
     protected void populateFromModel(T model) { }

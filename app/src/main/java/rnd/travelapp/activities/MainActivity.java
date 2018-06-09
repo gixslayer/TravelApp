@@ -29,12 +29,11 @@ public class MainActivity extends VerifyCacheActivity {
 
     @Override
     protected void onCacheVerified() {
-        appCache.getOrFetchList("models/testmodel/list.json", TestModel.class).onCompletion(result -> {
-            result.consume(models -> {
-                adapter = new TestModelAdapter(models, this);
-                listView.setAdapter(adapter);
-                listView.invalidateViews();
-            }, cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause));
-        });
+        appCache.getOrFetchList("models/testmodel/list.json", TestModel.class)
+                .onSuccess(models -> {
+                    adapter = new TestModelAdapter(models, this);
+                    listView.setAdapter(adapter);
+                    listView.invalidateViews();
+                }).orOnFailure(cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause));
     }
 }

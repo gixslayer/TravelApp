@@ -45,6 +45,10 @@ public abstract class Resource<T> {
         AppCache.getFor(context.getApplicationContext()).onCompletion(cache -> getOrFetch(cache, onCompletion));
     }
 
+    public void getOrFetch(Context context, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
+        getOrFetch(context, result -> result.consume(onSuccess, onFailure));
+    }
+
     public void getOrFetch(AppCache cache, Consumer<Failable<T>> onCompletion) {
         if (resource != null) {
             onCompletion.accept(Failable.success(resource));
@@ -53,6 +57,10 @@ public abstract class Resource<T> {
         cache.getResourceOrFetch(path, classType).onCompletion(result -> {
             onCompletion.accept(result.processSafe(r -> resource = r.resource));
         });
+    }
+
+    public void getOrFetch(AppCache cache, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
+        getOrFetch(cache, result -> result.consume(onSuccess, onFailure));
     }
 
     public abstract int getSize();
