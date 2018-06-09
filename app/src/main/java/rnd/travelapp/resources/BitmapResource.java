@@ -30,15 +30,15 @@ public class BitmapResource extends Resource<Bitmap> {
     }
 
     public void getOrFetchToImageView(Context context, ImageView imageView) {
-        getOrFetch(context, result -> result.consume(imageView::setImageBitmap, cause -> {
+        getOrFetch(context, imageView::setImageBitmap, cause -> {
             //Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
+        });
     }
 
     public void getOrFetchToImageView(AppCache cache, ImageView imageView) {
-        getOrFetch(cache, result -> result.consume(imageView::setImageBitmap, cause -> {
+        getOrFetch(cache, imageView::setImageBitmap, cause -> {
             //Log.e("TRAVEL_APP", "Could not fetch image", cause);
-        }));
+        });
     }
 
     protected static class Loader implements BinaryLoader<Bitmap> {

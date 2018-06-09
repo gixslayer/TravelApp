@@ -12,12 +12,9 @@ public abstract class ModelAdapterActivity<T> extends CacheActivity {
 
     @Override
     protected void onCacheInitialized() {
-        appCache.getOrFetchList(getModelListPath(), getModelType()).onCompletion(result -> {
-            result.consume(
-                    models -> adapter = createAdapter(models),
-                    cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause)
-            );
-        });
+        appCache.getOrFetchList(getModelListPath(), getModelType())
+                .onSuccess(models -> adapter = createAdapter(models))
+                .orOnFailure(cause -> Log.e("TRAVEL_APP", "Failed to fetch list", cause));
     }
 
     protected void openModel(int position, Class<?> activity) {

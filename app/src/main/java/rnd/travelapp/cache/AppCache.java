@@ -16,6 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import rnd.travelapp.R;
 import rnd.travelapp.models.ModelList;
 import rnd.travelapp.resources.Resource;
+import rnd.travelapp.threading.FailableTask;
 import rnd.travelapp.threading.Task;
 import rnd.travelapp.threading.VoidTask;
 import rnd.travelapp.utils.Failable;
@@ -109,16 +110,16 @@ public class AppCache {
         return Task.create(() -> memoryCache.getOrDefault(key, defaultValue, type));
     }
 
-    public <T> Task<Failable<T>> getOrFetch(String key, Class<T> type) {
-        return Task.create(() -> memoryCache.getOrFetch(key, type));
+    public <T> FailableTask<T> getOrFetch(String key, Class<T> type) {
+        return Task.createFailable(() -> memoryCache.getOrFetch(key, type));
     }
 
-    public <T> Task<Failable<Map<String, T>>> getOrFetchList(String listKey, Class<T> type) {
-        return Task.create(() -> memoryCache.getOrFetch(listKey, ModelList.class).process(list -> doGetOrFetchFromList(list, type)));
+    public <T> FailableTask<Map<String, T>> getOrFetchList(String listKey, Class<T> type) {
+        return Task.createFailable(() -> memoryCache.getOrFetch(listKey, ModelList.class).process(list -> doGetOrFetchFromList(list, type)));
     }
 
-    public <T> Task<Failable<Map<String, T>>> getOrFetchFromList(ModelList list, Class<T> type) {
-        return Task.create(() -> doGetOrFetchFromList(list, type));
+    public <T> FailableTask<Map<String, T>> getOrFetchFromList(ModelList list, Class<T> type) {
+        return Task.createFailable(() -> doGetOrFetchFromList(list, type));
     }
 
     public <T> Task<Optional<Resource<T>>> getResource(String key, Class<? extends Resource<T>> type) {
@@ -129,8 +130,8 @@ public class AppCache {
         return Task.create(() -> resourceMemoryCache.getResourceOrDefault(key, defaultValue, type));
     }
 
-    public <T> Task<Failable<Resource<T>>> getResourceOrFetch(String key, Class<? extends Resource<T>> type) {
-        return Task.create(() -> resourceMemoryCache.getResourceOrFetch(key, type));
+    public <T> FailableTask<Resource<T>> getResourceOrFetch(String key, Class<? extends Resource<T>> type) {
+        return Task.createFailable(() -> resourceMemoryCache.getResourceOrFetch(key, type));
     }
 
     public static Task<AppCache> getFor(Context context) {
