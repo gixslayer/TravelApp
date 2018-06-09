@@ -12,15 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.TestModelActivity"></activity>
-        <activity android:name=".activities.ReisAanbodActivity">
+        <activity android:name=".activities.TestModelActivity"
+            android:parentActivityName=".activities.MainActivity">
+        </activity>
+        <activity android:name=".activities.ReisAanbodActivity"
+            android:label="@string/aanbod">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ReisModelActivity"></activity>
+        <activity android:name=".activities.ReisModelActivity"
+            android:label="@string/reis_beschrijving"
+            android:parentActivityName=".activities.ReisAanbodActivity">
+        </activity>
     </application>
 
 </manifest>
