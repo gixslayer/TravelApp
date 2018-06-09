@@ -1,14 +1,18 @@
 package rnd.travelapp.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Map;
 
+import rnd.travelapp.Booking;
 import rnd.travelapp.R;
 import rnd.travelapp.adapters.ModelAdapter;
 import rnd.travelapp.adapters.ReisModelAdapter;
 import rnd.travelapp.models.ReisModel;
+import rnd.travelapp.utils.Failable;
 
 public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
     private ListView listView;
@@ -21,6 +25,15 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
         // Set listeners
         listView = findViewById(R.id.list_reis_aanbod);
         listView.setOnItemClickListener((adapterView, view, i, l) -> openModel(i, ReisModelActivity.class));
+
+        new Booking(this, "test").send().onCompletion(this::onBookingCompleted);
+    }
+
+    private void onBookingCompleted(Failable<Integer> result) {
+        result.consume(
+                bookingID -> Toast.makeText(this, Integer.toString(bookingID), Toast.LENGTH_SHORT).show(),
+                cause -> Log.e("TRAVEL_APP", "Booking failed", cause)
+        );
     }
 
     @Override
