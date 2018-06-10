@@ -35,7 +35,7 @@
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="8dp"
             android:text="@string/reis_titel_1"
-            style="@style/H1"
+            style="@style/H2"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -49,8 +49,8 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:text="@string/beschrijving_1"
-            android:maxLines="4"
-            android:textSize="18dp"
+            android:maxLines="5"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <!--Bottom Border-->
