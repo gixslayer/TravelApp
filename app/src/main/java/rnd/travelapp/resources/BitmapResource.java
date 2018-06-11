@@ -13,6 +13,9 @@ import rnd.travelapp.cache.AppCache;
 import rnd.travelapp.serialization.BinaryLoadable;
 import rnd.travelapp.serialization.BinaryLoader;
 
+/**
+ * Represents a Resource wrapper for a Bitmap.
+ */
 @BinaryLoadable(BitmapResource.Loader.class)
 public class BitmapResource extends Resource<Bitmap> {
 
@@ -29,12 +32,24 @@ public class BitmapResource extends Resource<Bitmap> {
         return resource != null ? resource.getAllocationByteCount() : 0;
     }
 
+    /**
+     * Fill the given imageView with the Bitmap resource, fetching it from the cache if required.
+     * If the fetching fails, the imageView is not filled.
+     * @param context the context to get the AppCache from
+     * @param imageView the ImageView to fill
+     */
     public void getOrFetchToImageView(Context context, ImageView imageView) {
         getOrFetch(context, imageView::setImageBitmap, cause -> {
             Log.e("TRAVEL_APP", "Could not fetch image", cause);
         });
     }
 
+    /**
+     * Fill the given imageView with the Bitmap resource, fetching it from the cache if required.
+     * If the fetching fails, the imageView is not filled.
+     * @param cache the AppCache to fetch from
+     * @param imageView the ImageView to fill
+     */
     public void getOrFetchToImageView(AppCache cache, ImageView imageView) {
         getOrFetch(cache, imageView::setImageBitmap, cause -> {
             Log.e("TRAVEL_APP", "Could not fetch image", cause);
