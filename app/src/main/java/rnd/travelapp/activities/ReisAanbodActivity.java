@@ -60,6 +60,12 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
     }
 
     private void onFilterChanged(String text) {
+        // When the screen is rotated the Activity is recreated, and this method might be invoked
+        // before filterAdapter has been set again, causing a crash.
+        if(filterAdapter == null) {
+            return;
+        }
+
         filterAdapter.clearFilters();
 
         if(text.isEmpty()) {
