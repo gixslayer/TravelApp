@@ -18,9 +18,11 @@ public class MainActivity extends VerifyCacheActivity {
     protected void onCacheVerified() {
         View aanbodReizen = findViewById(R.id.aanbod_reizen);
         View aanbodKuren = findViewById(R.id.aanbod_kuren);
+        View contact = findViewById(R.id.contact);
 
         aanbodReizen.setOnClickListener(view -> openActivity(ReisAanbodActivity.class));
         aanbodKuren.setOnClickListener(view -> openActivity(BoekActivity.class)); // TODO: Fix to kuur activity
+        contact.setOnClickListener(view -> openActivity(ContactActivity.class));
     }
 
     private void openActivity(Class<?> activity) {

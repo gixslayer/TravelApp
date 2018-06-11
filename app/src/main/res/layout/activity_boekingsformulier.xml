@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical">
 
@@ -31,6 +31,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/voornaam"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -45,6 +46,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/achternaam"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -59,6 +61,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/gebdatum"
+            android:inputType="date"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -84,6 +87,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/straat_huisnr"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_below="@id/straat_beschrijving"
@@ -99,6 +103,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/postcode"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -113,6 +118,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/stad"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -127,6 +133,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/telefoon"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -141,6 +148,7 @@
             android:textColor="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/email"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/rounded_edittext"
@@ -149,6 +157,7 @@
         <Button
             android:id="@+id/btn_boeken"
             android:text="Boeken"
+            android:onClick="onBoekClicked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -157,8 +166,6 @@
             android:id="@+id/footer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/reis_hotels"
-            android:layout_centerInParent="true"
             android:layout_marginTop="5dp">
 
             <ImageView
@@ -178,4 +185,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
