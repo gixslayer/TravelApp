@@ -14,11 +14,16 @@ import rnd.travelapp.Booking;
 import rnd.travelapp.R;
 
 public class BoekActivity extends Activity {
+    public static final String REIS_KEY = "reis";
+
+    private String reis;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boekingsformulier);
+
+        reis = getIntent().getStringExtra(REIS_KEY);
     }
 
     public void onBoekClicked(View view) {
@@ -40,7 +45,7 @@ public class BoekActivity extends Activity {
         String telefoon = telefoonVeld.getText().toString();
         String email = emailVeld.getText().toString();
 
-        new Booking(this, voornaam, achternaam, gebdatum, straatHuisNr, postcode, stad, telefoon, email).send()
+        new Booking(this, reis, voornaam, achternaam, gebdatum, straatHuisNr, postcode, stad, telefoon, email).send()
                 .onSuccess(this::onBookingSucceeded)
                 .orOnFailure(this::onBookingFailed);
     }

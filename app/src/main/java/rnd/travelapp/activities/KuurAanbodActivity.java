@@ -15,24 +15,24 @@ import rnd.travelapp.R;
 import rnd.travelapp.adapters.FilterModelAdapter;
 import rnd.travelapp.adapters.ModelAdapter;
 import rnd.travelapp.adapters.PassFilter;
-import rnd.travelapp.adapters.ReisModelAdapter;
+import rnd.travelapp.adapters.KuurModelAdapter;
 import rnd.travelapp.adapters.TagFilter;
-import rnd.travelapp.models.ReisModel;
+import rnd.travelapp.models.KuurModel;
 
-public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
+public class KuurAanbodActivity extends ModelAdapterActivity<KuurModel> {
     private ListView listView;
-    private FilterModelAdapter<ReisModel> filterAdapter;
+    private FilterModelAdapter<KuurModel> filterAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         // Set View
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reis_aanbod);
+        setContentView(R.layout.activity_kuur_aanbod);
 
         // Set listeners
-        listView = findViewById(R.id.list_reis_aanbod);
-        listView.setOnItemClickListener((adapterView, view, i, l) -> openModel(i, ReisModelActivity.class));
+        listView = findViewById(R.id.list_kuur_aanbod);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> openModel(i, KuurModelActivity.class));
 
-        EditText filterText = findViewById(R.id.reis_filter);
+        EditText filterText = findViewById(R.id.kuur_filter);
 
         filterText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,7 +65,7 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
             filterAdapter.addFilter(new PassFilter<>());
         } else {
             Arrays.stream(text.split(" ")).forEach(tag -> {
-                filterAdapter.addFilter(new TagFilter<>(ReisModel::getTags, tag));
+                filterAdapter.addFilter(new TagFilter<>(KuurModel::getTags, tag));
             });
         }
 
@@ -75,24 +75,24 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
 
     @Override
     protected String getModelListPath() {
-        return "models/reismodel/list.json";
+        return "models/kuurmodel/list.json";
     }
 
     @Override
-    protected Class<ReisModel> getModelType() {
-        return ReisModel.class;
+    protected Class<KuurModel> getModelType() {
+        return KuurModel.class;
     }
 
     @Override
-    protected ModelAdapter<ReisModel> createAdapter(Map<String, ReisModel> models) {
-        filterAdapter = new ReisModelAdapter(models, this);
+    protected ModelAdapter<KuurModel> createAdapter(Map<String, KuurModel> models) {
+        filterAdapter = new KuurModelAdapter(models, this);
 
         Intent intent = getIntent();
         if(intent.hasExtra("filters")) {
             filterAdapter.setFilters(
                     Arrays.stream(intent.getStringArrayExtra("filters"))
-                    .map(tag -> new TagFilter<>(ReisModel::getTags, tag))
-                    .collect(Collectors.toList())
+                            .map(tag -> new TagFilter<>(KuurModel::getTags, tag))
+                            .collect(Collectors.toList())
             );
         } else {
             filterAdapter.setFilters(new PassFilter<>());

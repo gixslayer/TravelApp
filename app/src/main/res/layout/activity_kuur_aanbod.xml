@@ -1,67 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.KuurAanbodActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/kuur_filter_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <!--<android.support.v4.widget.DrawerLayout
-            android:id="@+id/kuur_aanbod_menu_drawer"
-            android:layout_width="240dp"
-            android:layout_height="240dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zoek" />
 
-
-        </android.support.v4.widget.DrawerLayout>-->
-
-        <Toolbar
-            android:id="@+id/kuur_beschrijving_toolbar"
+        <EditText
+            android:id="@+id/kuur_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccentOld">
+            android:background="@drawable/rounded_edittext"
+            android:inputType="text" />
+    </LinearLayout>
 
-            <!--Menu Button-->
-            <Button
-                android:id="@+id/menu_btn"
-                android:layout_height="25dp"
-                android:layout_width="25dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/menu_btn"/>
+    <ListView
+        android:id="@+id/list_kuur_aanbod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-            <!--Menu Bar Text-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_gravity="center"
-                android:text="@string/aanbod"
-                android:textSize="25sp"
-                android:textAlignment="inherit"
-                android:textColor="@color/colorPrimary"/>
-            <!--android:fontFamily=""-->
-        </Toolbar>
-
-        <!--Menu Bar-->
-        <!--<LinearLayout
-            android:layout_below="@id/toolbar"
-            android:id="@+id/title_bar"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:background="@color/colorAccentOld"
-            android:orientation="horizontal">
-
-        </LinearLayout>-->
-
-        <ListView
-            android:id="@+id/list_kuur_aanbod"
-            android:layout_below="@id/kuur_beschrijving_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
