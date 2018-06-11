@@ -27,6 +27,7 @@
             android:label="@string/reis_beschrijving"
             android:parentActivityName=".activities.ReisAanbodActivity">
         </activity>
+        <activity android:name=".activities.BoekActivity" />
     </application>
 
 </manifest>
