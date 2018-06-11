@@ -17,9 +17,9 @@ public class ReisModelAdapter extends FilterModelAdapter<ReisModel>{
 
     @Override
     protected void populateView(View view, ReisModel model) {
-        TextView titleView = view.findViewById(R.id.title);
-        TextView shortDescriptionView = view.findViewById(R.id.short_description);
-        ImageView thumbnailView = view.findViewById(R.id.thumbnail);
+        TextView titleView = view.findViewById(R.id.list_item_reis_title);
+        TextView shortDescriptionView = view.findViewById(R.id.list_item_reis_short_description);
+        ImageView thumbnailView = view.findViewById(R.id.list_item_reis_thumbnail);
 
         titleView.setText(model.getReisTitel());
         shortDescriptionView.setText(model.getReisKorteBeschrijving());
