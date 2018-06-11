@@ -1,5 +1,6 @@
 package rnd.travelapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import rnd.travelapp.R;
 import rnd.travelapp.adapters.FilterModelAdapter;
@@ -84,8 +86,18 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
     @Override
     protected ModelAdapter<ReisModel> createAdapter(Map<String, ReisModel> models) {
         filterAdapter = new ReisModelAdapter(models, this);
-        filterAdapter.setFilters(new PassFilter<>());
-        filterAdapter.applyFilters();
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("filters")) {
+            filterAdapter.setFilters(
+                    Arrays.stream(intent.getStringArrayExtra("filters"))
+                    .map(tag -> new TagFilter<>(ReisModel::getTags, tag))
+                    .collect(Collectors.toList())
+            );
+        } else {
+            filterAdapter.setFilters(new PassFilter<>());
+            filterAdapter.applyFilters();
+        }
 
         listView.setAdapter(filterAdapter);
         listView.invalidateViews();
