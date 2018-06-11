@@ -3,17 +3,12 @@ package rnd.travelapp.activities;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Map;
 
-import rnd.travelapp.Booking;
 import rnd.travelapp.R;
 import rnd.travelapp.adapters.FilterModelAdapter;
 import rnd.travelapp.adapters.ModelAdapter;
@@ -34,10 +29,6 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
         // Set listeners
         listView = findViewById(R.id.list_reis_aanbod);
         listView.setOnItemClickListener((adapterView, view, i, l) -> openModel(i, ReisModelActivity.class));
-
-        new Booking(this, "test").send()
-                .onSuccess(bookingID -> Toast.makeText(this, Integer.toString(bookingID), Toast.LENGTH_SHORT).show())
-                .orOnFailure(cause -> Log.e("TRAVEL_APP", "Booking failed", cause));
 
         EditText filterText = findViewById(R.id.reis_filter);
 

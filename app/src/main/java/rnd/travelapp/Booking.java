@@ -21,11 +21,26 @@ import rnd.travelapp.utils.StreamUtils;
 
 public class Booking {
     private final URL bookURL;
-    private final String exampleParam;
+    private final String voornaam;
+    private final String achternaam;
+    private final String gebdatum;
+    private final String straatHuisNr;
+    private final String postcode;
+    private final String stad;
+    private final String telefoon;
+    private final String email;
 
-    public Booking(Context context, String exampleParam) {
+    public Booking(Context context, String voornaam, String achternaam, String gebdatum,
+                   String straatHuisNr, String postcode, String stad, String telefoon, String email) {
         this.bookURL = createURL(context);
-        this.exampleParam = exampleParam;
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.gebdatum = gebdatum;
+        this.straatHuisNr = straatHuisNr;
+        this.postcode = postcode;
+        this.stad = stad;
+        this.telefoon = telefoon;
+        this.email = email;
     }
 
     public FailableTask<Integer> send() {
@@ -35,7 +50,14 @@ public class Booking {
     private void postData(OutputStream stream) throws IOException, JSONException {
         JSONObject object = new JSONObject();
 
-        object.put("exampleParam", exampleParam);
+        object.put("voornaam", voornaam);
+        object.put("achternaam", achternaam);
+        object.put("gebdatum", gebdatum);
+        object.put("straat_huisnr", straatHuisNr);
+        object.put("postcode", postcode);
+        object.put("stad", stad);
+        object.put("telefoon", telefoon);
+        object.put("email", email);
 
         String json = object.toString();
         byte[] data = json.getBytes(StandardCharsets.UTF_8);
