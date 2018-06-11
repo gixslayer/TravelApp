@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.KuurAanbodActivity">
 
     <LinearLayout
@@ -37,7 +36,7 @@
         android:divider="@null"
         android:dividerHeight="0dp"/>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,13 +57,13 @@
             android:id="@+id/copyright_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="4dp"
             android:layout_centerInParent="true"
             android:layout_toRightOf="@id/copyright"
             android:text="fontana-travel"
             android:textColor="@color/colorAccent" />
         </RelativeLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     </LinearLayout>
 
