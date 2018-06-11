@@ -10,7 +10,7 @@ import java.util.Map;
 import rnd.travelapp.R;
 import rnd.travelapp.models.ReisModel;
 
-public class ReisModelAdapter extends ModelAdapter<ReisModel>{
+public class ReisModelAdapter extends FilterModelAdapter<ReisModel>{
     public ReisModelAdapter(Map<String, ReisModel> models, Context context) {
         super(models, context, R.layout.list_item_reis);
     }

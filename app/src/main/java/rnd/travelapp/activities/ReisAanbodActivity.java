@@ -1,20 +1,30 @@
 package rnd.travelapp.activities;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import rnd.travelapp.Booking;
 import rnd.travelapp.R;
+import rnd.travelapp.adapters.FilterModelAdapter;
 import rnd.travelapp.adapters.ModelAdapter;
+import rnd.travelapp.adapters.PassFilter;
 import rnd.travelapp.adapters.ReisModelAdapter;
+import rnd.travelapp.adapters.TagFilter;
 import rnd.travelapp.models.ReisModel;
 
 public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
     private ListView listView;
+    private FilterModelAdapter<ReisModel> filterAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         // Set View
@@ -28,6 +38,40 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
         new Booking(this, "test").send()
                 .onSuccess(bookingID -> Toast.makeText(this, Integer.toString(bookingID), Toast.LENGTH_SHORT).show())
                 .orOnFailure(cause -> Log.e("TRAVEL_APP", "Booking failed", cause));
+
+        EditText filterText = findViewById(R.id.reis_filter);
+
+        filterText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                onFilterChanged(editable.toString());
+            }
+        });
+    }
+
+    private void onFilterChanged(String text) {
+        filterAdapter.clearFilters();
+
+        if(text.isEmpty()) {
+            filterAdapter.addFilter(new PassFilter<>());
+        } else {
+            Arrays.stream(text.split(" ")).forEach(tag -> {
+                filterAdapter.addFilter(new TagFilter<>(ReisModel::getTags, tag));
+            });
+        }
+
+        filterAdapter.applyFilters();
+        listView.invalidateViews();
     }
 
     @Override
@@ -42,11 +86,13 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
 
     @Override
     protected ModelAdapter<ReisModel> createAdapter(Map<String, ReisModel> models) {
-        ModelAdapter<ReisModel> adapter = new ReisModelAdapter(models, this);
+        filterAdapter = new ReisModelAdapter(models, this);
+        filterAdapter.setFilters(new PassFilter<>());
+        filterAdapter.applyFilters();
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(filterAdapter);
         listView.invalidateViews();
 
-        return adapter;
+        return filterAdapter;
     }
 }

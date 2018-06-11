@@ -49,6 +49,8 @@ public abstract class FilterModelAdapter<T> extends ModelAdapter<T> {
     }
 
     public void applyFilters() {
+        filteredModels.clear();
+
         getModels().stream().filter(this::filter).collect(Collectors.toCollection(() -> filteredModels));
     }
 

@@ -13,8 +13,12 @@ public class TagFilter<T> implements Filter<T> {
     private String searchString;
 
     public TagFilter(Function<T, List<String>> tagsExtractor) {
+        this(tagsExtractor, "");
+    }
+
+    public TagFilter(Function<T, List<String>> tagsExtractor, String searchString) {
         this.tagsExtractor = tagsExtractor;
-        this.searchString = "";
+        this.searchString = searchString.toLowerCase();
     }
 
     public void setSearchString(String value) {
