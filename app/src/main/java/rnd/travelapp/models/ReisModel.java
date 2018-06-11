@@ -161,5 +161,13 @@ public class ReisModel {
         public Class<ReisModel> getType() {
             return ReisModel.class;
         }
+
+        private String jsonArrayToParagraph(JSONArray array) throws JSONException {
+            StringBuilder sb = new StringBuilder();
+            if (array != null && array.length() > 0)
+                for (int i = 0; i < array.length(); i++)
+                    sb.append(array.getString(i)).append("\n\n");
+            return sb.toString();
+        }
     }
 }

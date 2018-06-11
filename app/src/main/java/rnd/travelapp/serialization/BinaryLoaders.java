@@ -8,33 +8,65 @@ import java.util.Map;
 
 import rnd.travelapp.resources.Resource;
 
+/**
+ * Wrapper class to create easy cached access to binary loaders for a given type.
+ */
 public class BinaryLoaders {
     private static final Map<Class, BinaryLoader> LOADERS = new HashMap<>();
 
+    /**
+     * Deserialize an instance of the given wrapped resource type from the given stream.
+     * @param stream the stream to load from
+     * @param type the wrapped resource type to load
+     * @param <T> the unwrapped resource type
+     * @return the loaded unwrapped resource type
+     * @throws IOException if the loading failed
+     */
     public static <T> T deserialize(InputStream stream, Class<? extends Resource<T>> type) throws IOException {
-        BinaryLoader<T> loader = get(type);
-
-        return loader.deserialize(stream);
+        return get(type).deserialize(stream);
     }
 
+    /**
+     * Returns the binary loader for the given wrapped resource instance.
+     * @param instance the wrapper resource instance
+     * @param <T> the unwrapped resource type
+     * @return the loader instance
+     */
     public static <T> BinaryLoader<T> get(Resource<T> instance) {
         //noinspection unchecked
         return get((Class<? extends Resource<T>>)instance.getClass());
     }
 
+    /**
+     * Returns the binary loader for the given wrapped resource type.
+     * @param type the wrapped resource type
+     * @param <T> the unwrapped resource type
+     * @return the loader instance
+     */
     public static <T> BinaryLoader<T> get(Class<? extends Resource<T>> type) {
-        if(!LOADERS.containsKey(type)) {
-            LOADERS.put(type, create(type));
+        synchronized (LOADERS) {
+            //noinspection unchecked
+            return LOADERS.computeIfAbsent(type, BinaryLoaders::create);
         }
-
-        //noinspection unchecked
-        return LOADERS.get(type);
     }
 
+    /**
+     * Returns the type of the unwrapped resource type from the wrapped resource type. This method is
+     * required as this information is normally lost at runtime due to type erasure.
+     * @param type the wrapped resource type
+     * @param <T> the unwrapped resource type
+     * @return the unwrapped resource type T
+     */
     public static <T> Class<T> getType(Class<? extends Resource<T>> type) {
         return get(type).getType();
     }
 
+    /**
+     * Creates a new binary loader for the given wrapped resource type.
+     * @param type the wrapped resource type
+     * @param <T> the unwrapped resource type
+     * @return the loader instance
+     */
     private static <T> BinaryLoader<T> create(Class<? extends Resource<T>> type) {
         if(!type.isAnnotationPresent(BinaryLoadable.class)) {
             throw new IllegalArgumentException(String.format(

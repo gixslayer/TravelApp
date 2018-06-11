@@ -1,18 +1,24 @@
 package rnd.travelapp.serialization;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Loads a type from a JSON object.
+ * @param <T> the type to load
+ */
 public interface JSONLoader<T> {
+    /**
+     * Loads a type from the given JSON object.
+     * @param object the JSON object to load from
+     * @return the loaded type
+     * @throws JSONException if the type could not be loaded
+     */
     T deserialize(JSONObject object) throws JSONException;
-    Class<T> getType();
 
-    default String jsonArrayToParagraph(JSONArray array) throws JSONException {
-        StringBuilder sb = new StringBuilder();
-        if (array != null && array.length() > 0)
-            for (int i = 0; i < array.length(); i++)
-                sb.append(array.getString(i)).append("\n\n");
-        return sb.toString();
-    }
+    /**
+     * Returns the type of the generic parameter, which is lost at runtime due to type erasure.
+     * @return the type of generic parameter T
+     */
+    Class<T> getType();
 }

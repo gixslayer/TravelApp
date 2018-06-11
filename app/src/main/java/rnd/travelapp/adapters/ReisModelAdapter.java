@@ -10,6 +10,9 @@ import java.util.Map;
 import rnd.travelapp.R;
 import rnd.travelapp.models.ReisModel;
 
+/**
+ * Adapter for the overview of destinations.
+ */
 public class ReisModelAdapter extends FilterModelAdapter<ReisModel>{
     public ReisModelAdapter(Map<String, ReisModel> models, Context context) {
         super(models, context, R.layout.list_item_reis);

@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 
 import rnd.travelapp.cache.AppCache;
 
+/**
+ * Base for activities that use the AppCache.
+ */
 public abstract class CacheActivity extends Activity {
     protected AppCache appCache;
 
@@ -30,10 +33,16 @@ public abstract class CacheActivity extends Activity {
         appCache.saveChanges();
     }
 
+    /**
+     * Invoked right before the AppCache begins initialization.
+     */
     protected  void onBeginCacheInitialization() {
 
     }
 
+    /**
+     * Invoked once the AppCache has been initialized.
+     */
     protected void onCacheInitialized() {
 
     }

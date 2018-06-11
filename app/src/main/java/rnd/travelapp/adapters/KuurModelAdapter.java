@@ -10,6 +10,9 @@ import java.util.Map;
 import rnd.travelapp.R;
 import rnd.travelapp.models.KuurModel;
 
+/**
+ * Adapter for the overview of treatments.
+ */
 public class KuurModelAdapter extends FilterModelAdapter<KuurModel> {
     public KuurModelAdapter(Map<String, KuurModel> models, Context context) {
         super(models, context, R.layout.list_item_kuur);

@@ -6,11 +6,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Adapter wrapper that has filtering capabilities.
+ * @param <T> the model type
+ */
 public abstract class FilterModelAdapter<T> extends ModelAdapter<T> {
     private final List<T> filteredModels;
-    private final List<Filter<T>> filters;
+    private final List<Predicate<T>> filters;
 
     public FilterModelAdapter(Map<String, T> models, Context context, int layout) {
         super(models, context, layout);
@@ -19,35 +24,50 @@ public abstract class FilterModelAdapter<T> extends ModelAdapter<T> {
         this.filters = new ArrayList<>();
     }
 
+    /**
+     * Removes all filters.
+     */
     public void clearFilters() {
         filters.clear();
     }
 
-    public void addFilter(Filter<T> filter) {
+    /**
+     * Adds a filter.
+     * @param filter the filter to add
+     */
+    public void addFilter(Predicate<T> filter) {
         filters.add(filter);
     }
 
-    public void addFilters(Collection<Filter<T>> filters) {
+    /**
+     * Adds a collection of filters.
+     * @param filters the filters to add
+     */
+    public void addFilters(Collection<Predicate<T>> filters) {
         this.filters.addAll(filters);
     }
 
-    public void setFilters(Filter<T> filter) {
+    /**
+     * Removes all existing filters, and then adds the given filter.
+     * @param filter the filter to add
+     */
+    public void setFilters(Predicate<T> filter) {
         filters.clear();
         filters.add(filter);
     }
 
-    public void setFilters(Collection<Filter<T>> filters) {
+    /**
+     * Removes all existing filters, and then adds the given collection of filters.
+     * @param filters the filters to add
+     */
+    public void setFilters(Collection<Predicate<T>> filters) {
         this.filters.clear();
         this.filters.addAll(filters);
     }
 
-    public Filter<T> replaceFilter(Filter<T> oldFilter, Filter<T> newFilter) {
-        filters.remove(oldFilter);
-        filters.add(newFilter);
-
-        return newFilter;
-    }
-
+    /**
+     * Applies the filters to update the list of visible entries.
+     */
     public void applyFilters() {
         filteredModels.clear();
 
@@ -55,7 +75,7 @@ public abstract class FilterModelAdapter<T> extends ModelAdapter<T> {
     }
 
     private boolean filter(T instance) {
-        return filters.stream().allMatch(filter -> filter.filter(instance));
+        return filters.stream().allMatch(filter -> filter.test(instance));
     }
 
     @Override
@@ -68,6 +88,10 @@ public abstract class FilterModelAdapter<T> extends ModelAdapter<T> {
         return filteredModels.get(i);
     }
 
+    /**
+     * Returns the list of currently visible entries.
+     * @return the visible entries
+     */
     public List<T> getFilteredModels() {
         return filteredModels;
     }
