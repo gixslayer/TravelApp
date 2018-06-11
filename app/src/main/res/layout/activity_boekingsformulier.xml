@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vul het onderstaande formulier in om de reis te boeken. "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp"
+            android:textAlignment="inherit"/>
+
+        <TextView
+            android:id="@+id/voornaam_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voornaam:"
+            android:textSize="16dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/voornaam"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/achternaam_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Achternaam:"
+            android:textSize="16dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/achternaam"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/gebdatum_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Geboortedatum:"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/gebdatum"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="dd - mm - yyyy"
+            />
+
+        <TextView
+            android:id="@+id/adres_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adres:"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/straat_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adres_beschrijving"
+            android:text="Straat + huisnummer"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/straat_huisnr"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_below="@id/straat_beschrijving"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/postcode_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Postcode"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/postcode"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/stad_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stad"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/stad"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/telefoon_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefoonnummer:"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/telefoon"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+        <TextView
+            android:id="@+id/email_beschrijving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/rounded_edittext"
+            />
+
+        <Button
+            android:id="@+id/btn_boeken"
+            android:text="Boeken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--footer-->
+        <RelativeLayout
+            android:id="@+id/footer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reis_hotels"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/copyright"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/copyright" />
+
+            <TextView
+                android:id="@+id/copyright_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/copyright"
+                android:text="fontana-travel"
+                android:textColor="@color/colorAccent" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
