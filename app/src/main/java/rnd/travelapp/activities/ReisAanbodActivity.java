@@ -94,6 +94,7 @@ public class ReisAanbodActivity extends ModelAdapterActivity<ReisModel> {
                     .map(tag -> new TagFilter<>(ReisModel::getTags, tag))
                     .collect(Collectors.toList())
             );
+            filterAdapter.applyFilters();
         } else {
             filterAdapter.setFilters(new PassFilter<>());
             filterAdapter.applyFilters();

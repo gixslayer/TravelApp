@@ -94,6 +94,7 @@ public class KuurAanbodActivity extends ModelAdapterActivity<KuurModel> {
                             .map(tag -> new TagFilter<>(KuurModel::getTags, tag))
                             .collect(Collectors.toList())
             );
+            filterAdapter.applyFilters();
         } else {
             filterAdapter.setFilters(new PassFilter<>());
             filterAdapter.applyFilters();

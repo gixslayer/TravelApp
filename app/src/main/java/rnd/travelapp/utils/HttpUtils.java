@@ -7,7 +7,17 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Utility methods related to HTTP interaction.
+ */
 public class HttpUtils {
+    /**
+     * Perform a HTTP GET operation.
+     * @param url the url to GET
+     * @param handler the handler to invoke once the connection is established
+     * @param <T> the return type of the handler
+     * @return the result of the handler, which could fail
+     */
     public static <T> Failable<T> doGet(URL url, ConnectionProcessor<T> handler) {
         HttpURLConnection connection = null;
 
@@ -27,6 +37,14 @@ public class HttpUtils {
         }
     }
 
+    /**
+     * Perform a HTTP POST operation.
+     * @param url the url to POST
+     * @param poster the poster to invoke to perform the POST once the connection is established
+     * @param handler the handler to invoke once the server has responded
+     * @param <T> the return type of the handler
+     * @return the result of the handler, which could fail
+     */
     public static <T> Failable<T> doPost(URL url, ConnectionPoster poster, ConnectionProcessor<T> handler) {
         HttpURLConnection connection = null;
 
@@ -53,13 +71,32 @@ public class HttpUtils {
         }
     }
 
+    /**
+     * Defines the HTTP GET handler interface.
+     * @param <T> the return type of the interface
+     */
     @FunctionalInterface
     public interface ConnectionProcessor<T> {
+        /**
+         * Performs the GET operation on the HTTP connection.
+         * @param connection the HTTP connection
+         * @param stream the stream to GET from
+         * @return the processed GET response
+         * @throws Exception if the GET failed
+         */
         T process(HttpURLConnection connection, InputStream stream) throws Exception;
     }
 
+    /**
+     * Defines the HTTP POST poster interface.
+     */
     @FunctionalInterface
     public interface ConnectionPoster {
+        /**
+         * Performs the POST operation on the HTTP connection.
+         * @param outputStream the stream to POST to
+         * @throws Exception if the POST failed
+         */
         void post(OutputStream outputStream) throws Exception;
     }
 }
