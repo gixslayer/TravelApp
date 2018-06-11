@@ -5,9 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rnd.travelapp.resources.BitmapResource;
 import rnd.travelapp.serialization.JSONLoadable;
@@ -22,19 +20,15 @@ public class KuurModel {
     private final String kuurType;
     private final String kuurKorteBeschrijving;
 
-    private final TextSection kuurAlgemeneBeschrijving;
-    private final TextSection kuurKlachtSoorten;
-    private final TextSection kuurProgramma;
+    private final TextSection beschrijving;
 
-    public KuurModel(List<String> tags, BitmapResource kuurAfbeelding, String kuurTitel, String kuurType, String kuurKorteBeschrijving, TextSection kuurAlgemeneBeschrijving, TextSection kuurKlachtSoorten, TextSection kuurProgramma) {
+    public KuurModel(List<String> tags, BitmapResource kuurAfbeelding, String kuurTitel, String kuurType, String kuurKorteBeschrijving, TextSection beschrijving) {
         this.tags = tags;
         this.kuurAfbeelding = kuurAfbeelding;
         this.kuurTitel = kuurTitel;
         this.kuurType = kuurType;
         this.kuurKorteBeschrijving = kuurKorteBeschrijving;
-        this.kuurAlgemeneBeschrijving = kuurAlgemeneBeschrijving;
-        this.kuurKlachtSoorten = kuurKlachtSoorten;
-        this.kuurProgramma = kuurProgramma;
+        this.beschrijving = beschrijving;
     }
 
     public BitmapResource getKuurAfbeelding() {
@@ -52,16 +46,8 @@ public class KuurModel {
     public List<String> getTags() {
         return tags;
     }
-    public TextSection getAlgemeneBeschrijving() {
-        return kuurAlgemeneBeschrijving;
-    }
-
-    public TextSection getKuurKlachtSoorten() {
-        return kuurKlachtSoorten;
-    }
-
-    public TextSection getKuurProgramma() {
-        return kuurProgramma;
+    public TextSection getBeschrijving() {
+        return beschrijving;
     }
 
     protected static class Loader implements JSONLoader<KuurModel> {
@@ -76,11 +62,9 @@ public class KuurModel {
             String kuurType = object.getString("kuur_type");
             String kuurKorteBeschrijving = object.getString("korte_beschrijving");
 
-            TextSection kuurAlgemeneBeschrijving = new TextSection(object.getJSONObject("algemene_beschrijving"));
-            TextSection kuurKlachtSoorten = new TextSection(object.getJSONObject("klacht_soorten"));
-            TextSection kuurProgramma = new TextSection(object.getJSONObject("kuur_programma"));
+            TextSection beschrijving = new TextSection(object.getJSONObject("beschrijving"));
 
-            return new KuurModel(tags, kuurAfbeelding, kuurTitel, kuurType, kuurKorteBeschrijving, kuurAlgemeneBeschrijving, kuurKlachtSoorten, kuurProgramma);
+            return new KuurModel(tags, kuurAfbeelding, kuurTitel, kuurType, kuurKorteBeschrijving, beschrijving);
         }
 
         @Override

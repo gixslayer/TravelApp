@@ -27,8 +27,7 @@
                 <ImageView
                     android:id="@+id/reis_afbeelding"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@drawable/igalo_montenegro" />
+                    android:layout_height="180dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

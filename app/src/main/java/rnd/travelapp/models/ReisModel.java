@@ -130,7 +130,7 @@ public class ReisModel {
             String reisTitel = object.getString("titel");
             String reisType = object.getString("reis_type");
             String reisKorteBeschrijving = object.getString("korte_beschrijving");
-            String reisAlgemeneBeschrijving = object.getString("algemene_beschrijving");
+            String reisAlgemeneBeschrijving = jsonArrayToParagraph(object.getJSONArray("algemene_beschrijving"));
             BitmapResource kurenAfbeelding = new BitmapResource(object.getJSONObject("kuren").getString("afbeelding"));
             String kurenTitel = object.getJSONObject("kuren").getString("titel");
             String kurenKorteBeschrijving = object.getJSONObject("kuren").getString("korte_beschrijving");
