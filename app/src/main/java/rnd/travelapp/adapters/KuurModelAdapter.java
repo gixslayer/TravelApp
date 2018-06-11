@@ -23,6 +23,6 @@ public class KuurModelAdapter extends FilterModelAdapter<KuurModel> {
 
         titleView.setText(model.getKuurTitel());
         shortDescriptionView.setText(model.getKuurKorteBeschrijving());
-        model.getKuurAfbeelding().getOrFetchToImageView(context, thumbnailView);
+        model.getKuurThumbnail().getOrFetchToImageView(context, thumbnailView);
     }
 }
