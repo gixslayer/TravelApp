@@ -10,11 +10,11 @@ import android.widget.ListView;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import rnd.travelapp.R;
 import rnd.travelapp.adapters.FilterModelAdapter;
 import rnd.travelapp.adapters.ModelAdapter;
-import rnd.travelapp.adapters.PassFilter;
 import rnd.travelapp.adapters.KuurModelAdapter;
 import rnd.travelapp.adapters.TagFilter;
 import rnd.travelapp.models.KuurModel;
@@ -59,18 +59,7 @@ public class KuurAanbodActivity extends ModelAdapterActivity<KuurModel> {
             return;
         }
 
-        filterAdapter.clearFilters();
-
-        if(text.isEmpty()) {
-            filterAdapter.addFilter(new PassFilter<>());
-        } else {
-            Arrays.stream(text.split(" ")).forEach(tag -> {
-                filterAdapter.addFilter(new TagFilter<>(KuurModel::getTags, tag));
-            });
-        }
-
-        filterAdapter.applyFilters();
-        listView.invalidateViews();
+        setFilters(text.isEmpty() ? null : text.split(" "));
     }
 
     @Override
@@ -86,23 +75,27 @@ public class KuurAanbodActivity extends ModelAdapterActivity<KuurModel> {
     @Override
     protected ModelAdapter<KuurModel> createAdapter(Map<String, KuurModel> models) {
         filterAdapter = new KuurModelAdapter(models, this);
-
         Intent intent = getIntent();
-        if(intent.hasExtra("filters")) {
-            filterAdapter.setFilters(
-                    Arrays.stream(intent.getStringArrayExtra("filters"))
-                            .map(tag -> new TagFilter<>(KuurModel::getTags, tag))
-                            .collect(Collectors.toList())
-            );
-            filterAdapter.applyFilters();
-        } else {
-            filterAdapter.setFilters(new PassFilter<>());
-            filterAdapter.applyFilters();
-        }
 
         listView.setAdapter(filterAdapter);
-        listView.invalidateViews();
+        setFilters(intent.hasExtra("filters") ? intent.getStringArrayExtra("filters") : null);
 
         return filterAdapter;
+    }
+
+    private void setFilters(String[] tags) {
+        Stream<String> stream = tags == null ? Stream.empty() : Arrays.stream(tags);
+
+        // Create a tag filter for each tag.
+        filterAdapter.setFilters(stream
+                .map(tag -> new TagFilter<>(KuurModel::getTags, tag))
+                .collect(Collectors.toList())
+        );
+        // Add a filter that always passes so that no tag filters shows all results.
+        filterAdapter.addFilter(instance -> true);
+
+        // Apply the filters and invalidate the list view to force a redraw.
+        filterAdapter.applyFilters();
+        listView.invalidateViews();
     }
 }

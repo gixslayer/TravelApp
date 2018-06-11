@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Simple Adapter wrapper over a map of model, model path pairs.
+ * @param <T> the model type
+ */
 public abstract class ModelAdapter<T> extends BaseAdapter {
     private final List<T> models;
     private final Map<T, String> modelPaths;
@@ -67,5 +71,10 @@ public abstract class ModelAdapter<T> extends BaseAdapter {
         return view;
     }
 
+    /**
+     * Populate the given view from the given model.
+     * @param view the view to populate
+     * @param model the model to populate the view with
+     */
     protected abstract void populateView(View view, T model);
 }
