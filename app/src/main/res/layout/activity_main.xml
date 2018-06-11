@@ -68,7 +68,7 @@
             android:layout_marginBottom="25dp"
             android:layout_marginRight="25dp">
         <TextView
-            android:id="@+id/btn_contact"
+            android:id="@+id/btn_contact_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccentOld"
