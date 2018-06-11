@@ -28,6 +28,8 @@
             android:parentActivityName=".activities.ReisAanbodActivity">
         </activity>
         <activity android:name=".activities.BoekActivity" />
+        <activity android:name=".activities.ContactActivity"
+            android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 </manifest>
