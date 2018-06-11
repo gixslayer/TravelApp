@@ -21,6 +21,7 @@ import rnd.travelapp.utils.StreamUtils;
 
 public class Booking {
     private final URL bookURL;
+    private final String reis;
     private final String voornaam;
     private final String achternaam;
     private final String gebdatum;
@@ -30,9 +31,10 @@ public class Booking {
     private final String telefoon;
     private final String email;
 
-    public Booking(Context context, String voornaam, String achternaam, String gebdatum,
+    public Booking(Context context, String reis, String voornaam, String achternaam, String gebdatum,
                    String straatHuisNr, String postcode, String stad, String telefoon, String email) {
         this.bookURL = createURL(context);
+        this.reis = reis;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.gebdatum = gebdatum;
@@ -50,6 +52,7 @@ public class Booking {
     private void postData(OutputStream stream) throws IOException, JSONException {
         JSONObject object = new JSONObject();
 
+        object.put("reis", reis);
         object.put("voornaam", voornaam);
         object.put("achternaam", achternaam);
         object.put("gebdatum", gebdatum);
