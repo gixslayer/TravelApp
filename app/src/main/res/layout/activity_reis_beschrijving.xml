@@ -358,30 +358,29 @@
                     android:background="@color/colorPrimaryDark" />
             </RelativeLayout>
 
-            <!--footer-->
             <RelativeLayout
-                android:id="@+id/footer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/reis_hotels"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-
-                <ImageView
-                    android:id="@+id/copyright"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@drawable/copyright" />
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/reis_hotels">
 
                 <TextView
-                    android:id="@+id/copyright_text"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/reis_boek_btn"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@id/copyright"
-                    android:text="fontana-travel"
-                    android:textColor="@color/colorAccent" />
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/colorAccentOld"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="6dp"
+                    android:text="Boek nu!"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp">
+
+                </TextView>
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

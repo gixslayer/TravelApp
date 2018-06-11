@@ -1,16 +1,10 @@
 package rnd.travelapp.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,12 +80,33 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
         expandOmgevingButton.setOnClickListener(new ExpandButtonListener(omgevingLangeBeschrijving));
         expandHotelsButton.setOnClickListener(new ExpandButtonListener(hotelsLangeBeschrijving));
 
+        // Boek button
+        String modelKey = getIntent().getStringExtra(MODEL_KEY);
+        View reisBoekBtn = findViewById(R.id.reis_boek_btn);
+        reisBoekBtn.setOnClickListener(new BoekListener(modelKey));
+
         // HIER MOETEN NOG DE KUUR BUTTONS LISTENERS KRIJGEN
     }
 
     @Override
     protected Class<ReisModel> getModelType() {
         return ReisModel.class;
+    }
+
+    private class BoekListener implements View.OnClickListener {
+        private final String modelKey;
+
+        private BoekListener(String modelKey) {
+            this.modelKey = modelKey;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), BoekActivity.class);
+            intent.putExtra(BoekActivity.REIS_KEY, modelKey);
+
+            startActivity(intent);
+        }
     }
 
     private class ExpandButtonListener implements View.OnClickListener {
