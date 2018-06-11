@@ -13,12 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="25dp">
+            >
 
             <ImageView
                 android:id="@+id/kuur_afbeelding"
                 android:layout_width="match_parent"
-                android:layout_height="180dp" />
+                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"/>
 
             <!--Titel-->
             <TextView
@@ -45,12 +46,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginTop="25dp">
 
                 <TextView
                     android:id="@+id/kuur_bestemmingen_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:background="@color/colorAccentOld"
@@ -58,10 +59,10 @@
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:paddingTop="6dp"
-                    android:text="Bestemmingen"
+                    android:text="Toon bestemmingen"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="30sp">
+                    android:textSize="24sp">
 
                 </TextView>
             </RelativeLayout>

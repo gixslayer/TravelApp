@@ -14,7 +14,7 @@
         android:id="@+id/aanbod_reizen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
+        android:layout_margin="20dp"
         android:background="@color/colorAccentOld">
 
         <ImageView
@@ -38,8 +38,8 @@
         android:id="@+id/aanbod_kuren"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorAccentOld">
 
         <ImageView
@@ -63,10 +63,7 @@
             android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginRight="25dp">
+            android:layout_margin="20dp">
         <TextView
             android:id="@+id/btn_contact_text"
             android:layout_width="match_parent"

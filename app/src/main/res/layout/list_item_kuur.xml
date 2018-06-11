@@ -53,12 +53,12 @@
         </LinearLayout>
 
         <!--Bottom Border-->
-        <ImageView
-            android:id="@+id/list_item_bottom_border"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+        <View
+            android:layout_width="325dp"
+            android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorBorderLight" />
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimaryDark" />
     </RelativeLayout>
 
 
