@@ -119,14 +119,6 @@ public class ReisModel {
         return hotelsLangeBeschrijving;
     }
 
-    public static String jsonArrayToString (JSONArray array) throws JSONException {
-        StringBuilder sb = new StringBuilder();
-        if (array != null && array.length() > 0)
-            for (int i = 0; i < array.length(); i++)
-                sb.append(array.getString(i)).append("\n\n");
-        return sb.toString();
-    }
-
     protected static class Loader implements JSONLoader<ReisModel> {
         @Override
         public ReisModel deserialize(JSONObject object) throws JSONException {
@@ -142,7 +134,7 @@ public class ReisModel {
             BitmapResource kurenAfbeelding = new BitmapResource(object.getJSONObject("kuren").getString("afbeelding"));
             String kurenTitel = object.getJSONObject("kuren").getString("titel");
             String kurenKorteBeschrijving = object.getJSONObject("kuren").getString("korte_beschrijving");
-            String kurenLangeBeschrijving = ReisModel.jsonArrayToString(object.getJSONObject("kuren").getJSONArray("lange_beschrijving"));
+            String kurenLangeBeschrijving = jsonArrayToParagraph(object.getJSONObject("kuren").getJSONArray("lange_beschrijving"));
             JSONArray kurenJSON = object.getJSONArray("kurenreferenties");
             Map<String, String> kuren = new HashMap<>();
             for (int i = 0; i < kurenJSON.length(); i++)
@@ -150,11 +142,11 @@ public class ReisModel {
             BitmapResource omgevingAfbeelding = new BitmapResource(object.getJSONObject("omgeving").getString("afbeelding"));
             String omgevingTitel = object.getJSONObject("omgeving").getString("titel");
             String omgevingKorteBeschrijving = object.getJSONObject("omgeving").getString("korte_beschrijving");
-            String omgevingLangeBeschrijving = ReisModel.jsonArrayToString(object.getJSONObject("omgeving").getJSONArray("lange_beschrijving"));
+            String omgevingLangeBeschrijving = jsonArrayToParagraph(object.getJSONObject("omgeving").getJSONArray("lange_beschrijving"));
             BitmapResource hotelsAfbeelding = new BitmapResource(object.getJSONObject("hotels").getString("afbeelding"));
             String hotelsTitel = object.getJSONObject("hotels").getString("titel");
             String hotelsKorteBeschrijving = object.getJSONObject("hotels").getString("korte_beschrijving");
-            TextSection hotelsLangeBeschrijving = new TextSection(object.getJSONObject("hotels"));
+            TextSection hotelsLangeBeschrijving = new TextSection(object.getJSONObject("hotels").getJSONObject("lange_beschrijving"));
 
             return new ReisModel(tags, reisAfbeelding, reisTitel, reisType, reisKorteBeschrijving, reisAlgemeneBeschrijving, kurenAfbeelding, kurenTitel, kurenKorteBeschrijving, kurenLangeBeschrijving, kuren, omgevingAfbeelding, omgevingTitel, omgevingKorteBeschrijving, omgevingLangeBeschrijving, hotelsAfbeelding, hotelsTitel, hotelsKorteBeschrijving, hotelsLangeBeschrijving);
         }
