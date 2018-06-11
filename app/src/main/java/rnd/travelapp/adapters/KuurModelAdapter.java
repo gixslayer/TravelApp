@@ -12,7 +12,7 @@ import rnd.travelapp.models.KuurModel;
 
 public class KuurModelAdapter extends FilterModelAdapter<KuurModel> {
     public KuurModelAdapter(Map<String, KuurModel> models, Context context) {
-        super(models, context, R.layout.list_item_reis);
+        super(models, context, R.layout.list_item_kuur);
     }
 
     @Override

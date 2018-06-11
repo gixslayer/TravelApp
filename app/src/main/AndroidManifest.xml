@@ -29,7 +29,12 @@
         <activity android:name=".activities.BoekActivity" />
         <activity android:name=".activities.ContactActivity"
             android:parentActivityName=".activities.MainActivity"/>
-        <activity android:name=".activities.KuurAanbodActivity" />
+        <activity android:name=".activities.KuurAanbodActivity"
+            android:label="Aanbod kuren"
+            android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.KuurModelActivity"
+            android:label="Kuur Beschrijving"
+            android:parentActivityName=".activities.KuurAanbodActivity"/>
     </application>
 
 </manifest>
