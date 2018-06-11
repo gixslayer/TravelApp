@@ -18,7 +18,8 @@
             <ImageView
                 android:id="@+id/kuur_afbeelding"
                 android:layout_width="match_parent"
-                android:layout_height="180dp" />
+                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"/>
 
             <!--Titel-->
             <TextView
