@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 
 import rnd.travelapp.utils.Action;
 
+/**
+ * Represents an async task that has no result.
+ */
 public class VoidTask extends Task<Void> {
     private final Action task;
 
@@ -24,6 +27,10 @@ public class VoidTask extends Task<Void> {
         onCompletion(() -> onCompletion.accept(null));
     }
 
+    /**
+     * Sets the callback to call on the UI thread once the async task completes.
+     * @param onCompletion the callback on completion
+     */
     public void onCompletion(Action onCompletion) {
         new TaskWrapper(task, onCompletion).execute();
     }

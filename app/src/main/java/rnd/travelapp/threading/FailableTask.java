@@ -7,6 +7,10 @@ import java.util.function.Supplier;
 
 import rnd.travelapp.utils.Failable;
 
+/**
+ * Represents an async task that has the possibility of failing.
+ * @param <T> the result type of the task
+ */
 public class FailableTask<T> extends Task<Failable<T>> {
     private Consumer<T> onSuccess;
 
@@ -16,6 +20,12 @@ public class FailableTask<T> extends Task<Failable<T>> {
         this.onSuccess = null;
     }
 
+    /**
+     * Sets the callback to call on the UI thread if the async task successfully completes.
+     * This method must be called before orOnFailure, but does not yet start execution of this task.
+     * @param onSuccess the callback on success
+     * @return this instance
+     */
     public FailableTask<T> onSuccess(Consumer<T> onSuccess) {
         if(this.onSuccess != null) {
             throw new IllegalStateException("onSuccess already called");
@@ -26,6 +36,11 @@ public class FailableTask<T> extends Task<Failable<T>> {
         return this;
     }
 
+    /**
+     * Sets the callback to call on the UI thread if the async task fails to complete. This method
+     * cannot be called before onSuccess is called, and starts executions of this task.
+     * @param onFailure the callback on failure
+     */
     public void orOnFailure(Consumer<Throwable> onFailure) {
         if(onSuccess == null) {
             throw new IllegalStateException("onSuccess not called");
@@ -34,6 +49,9 @@ public class FailableTask<T> extends Task<Failable<T>> {
         new TaskWrapper<>(task, onSuccess, onFailure).execute();
     }
 
+    /**
+     * Invokes orOnFailure with an empty failure callback.
+     */
     public void orIgnoreOnFailure() {
         orOnFailure(cause -> {});
     }
