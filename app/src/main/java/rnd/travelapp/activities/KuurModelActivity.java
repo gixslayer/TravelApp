@@ -29,7 +29,7 @@ public class KuurModelActivity extends ModelActivity<KuurModel> {
         kuurTitel.setText(kuurModel.getKuurTitel());
         kuurBeschrijving.setText(kuurModel.getBeschrijving().getSpannedString(this));
 
-        kuurBestemmingenBtn.setOnClickListener(new bestemmingenListener(kuurModel.getKuurTitel()));
+        kuurBestemmingenBtn.setOnClickListener(new BestemmingenListener(kuurModel.getKuurTitel()));
     }
 
     @Override
@@ -37,10 +37,10 @@ public class KuurModelActivity extends ModelActivity<KuurModel> {
         return KuurModel.class;
     }
 
-    private class bestemmingenListener implements View.OnClickListener {
+    private class BestemmingenListener implements View.OnClickListener {
         private final String kuurNaam;
 
-        private bestemmingenListener(String kuurNaam) {
+        private BestemmingenListener(String kuurNaam) {
             this.kuurNaam = kuurNaam.toLowerCase();
         }
 
