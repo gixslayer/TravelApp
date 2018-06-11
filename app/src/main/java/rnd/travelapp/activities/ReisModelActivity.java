@@ -127,6 +127,8 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
 
         public void onClick(View button) {
             expandable.setVisibility(expandable.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            button.setBackgroundResource(expandable.getVisibility() == View.VISIBLE ? R.drawable.minimize_btn_dark : R.drawable.expand_btn_dark);
+
         }
 
 //        public ExpandButtonListener(View expandable, int oldHeight) {
