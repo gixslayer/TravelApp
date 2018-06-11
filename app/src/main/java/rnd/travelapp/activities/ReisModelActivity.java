@@ -1,10 +1,8 @@
 package rnd.travelapp.activities;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,91 +74,28 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
         ImageButton expandOmgevingButton = findViewById(R.id.btn_expand_omgeving);
         ImageButton expandHotelsButton = findViewById(R.id.btn_expand_hotels);
 
-        expandKurenButton.setOnClickListener(new ExpandButtonListener(kurenLangeBeschrijving));
-        expandOmgevingButton.setOnClickListener(new ExpandButtonListener(omgevingLangeBeschrijving));
-        expandHotelsButton.setOnClickListener(new ExpandButtonListener(hotelsLangeBeschrijving));
+        expandKurenButton.setOnClickListener(button -> toggleExpandView(button, kurenLangeBeschrijving));
+        expandOmgevingButton.setOnClickListener(button -> toggleExpandView(button, omgevingLangeBeschrijving));
+        expandHotelsButton.setOnClickListener(button -> toggleExpandView(button, hotelsLangeBeschrijving));
 
         // Boek button
         String modelKey = getIntent().getStringExtra(MODEL_KEY);
         View reisBoekBtn = findViewById(R.id.reis_boek_btn);
-        reisBoekBtn.setOnClickListener(new BoekListener(modelKey));
+        reisBoekBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), BoekActivity.class);
+            intent.putExtra(BoekActivity.REIS_KEY, modelKey);
 
-        // HIER MOETEN NOG DE KUUR BUTTONS LISTENERS KRIJGEN
+            startActivity(intent);
+        });
+    }
+
+    private void toggleExpandView(View button, View expandable) {
+        expandable.setVisibility(expandable.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        button.setBackgroundResource(expandable.getVisibility() == View.VISIBLE ? R.drawable.minimize_btn_dark : R.drawable.expand_btn_dark);
     }
 
     @Override
     protected Class<ReisModel> getModelType() {
         return ReisModel.class;
-    }
-
-    private class BoekListener implements View.OnClickListener {
-        private final String modelKey;
-
-        private BoekListener(String modelKey) {
-            this.modelKey = modelKey;
-        }
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), BoekActivity.class);
-            intent.putExtra(BoekActivity.REIS_KEY, modelKey);
-
-            startActivity(intent);
-        }
-    }
-
-    private class ExpandButtonListener implements View.OnClickListener {
-        private final View expandable;
-//        private final int oldHeight;
-//        private final ValueAnimator slide_down;
-//        private final ValueAnimator slide_up;
-
-        public ExpandButtonListener(View expandable) {
-            this.expandable = expandable;
-//            this.oldHeight = expandable.getHeight();
-//            ViewGroup.LayoutParams params = expandable.getLayoutParams();
-//            params.height = 0;
-//            expandable.setLayoutParams(params);
-//            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
-//            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
-        }
-
-        public void onClick(View button) {
-            expandable.setVisibility(expandable.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            button.setBackgroundResource(expandable.getVisibility() == View.VISIBLE ? R.drawable.minimize_btn_dark : R.drawable.expand_btn_dark);
-
-        }
-
-//        public ExpandButtonListener(View expandable, int oldHeight) {
-//            this.expandable = expandable;
-//            this.oldHeight = oldHeight;
-//            ViewGroup.LayoutParams params = expandable.getLayoutParams();
-//            params.height = 0;
-//            expandable.setLayoutParams(params);
-//            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
-//            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
-//        }
-
-//        public void onClick(View button) {
-//            if (expandable.getLayoutParams().height == oldHeight) {
-//                slide_up.start();
-//            } else {
-//                slide_down.start();
-//            }
-//        }
-    }
-
-    private ValueAnimator getToggleAnimation(View view, int startHeight, int endHeight) {
-        ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
-        animator.setDuration(300);
-
-        animator.addUpdateListener(animation -> {
-            int val = (int) animation.getAnimatedValue();
-            ViewGroup.LayoutParams params = view.getLayoutParams();
-            params.height = val;
-            view.setLayoutParams(params);
-        });
-
-        return animator;
     }
 }

@@ -2,10 +2,8 @@ package rnd.travelapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import rnd.travelapp.R;
 import rnd.travelapp.models.KuurModel;
@@ -29,28 +27,16 @@ public class KuurModelActivity extends ModelActivity<KuurModel> {
         kuurTitel.setText(kuurModel.getKuurTitel());
         kuurBeschrijving.setText(kuurModel.getBeschrijving().getSpannedString(this));
 
-        kuurBestemmingenBtn.setOnClickListener(new BestemmingenListener(kuurModel.getKuurTitel()));
+        kuurBestemmingenBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), ReisAanbodActivity.class);
+            intent.putExtra("filters", new String[]{kuurModel.getKuurTitel()});
+
+            startActivity(intent);
+        });
     }
 
     @Override
     protected Class<KuurModel> getModelType() {
         return KuurModel.class;
-    }
-
-    private class BestemmingenListener implements View.OnClickListener {
-        private final String kuurNaam;
-
-        private BestemmingenListener(String kuurNaam) {
-            this.kuurNaam = kuurNaam.toLowerCase();
-        }
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), ReisAanbodActivity.class);
-            String[] tags = new String[]{kuurNaam};
-            intent.putExtra("filters", tags);
-
-            startActivity(intent);
-        }
     }
 }
