@@ -18,6 +18,7 @@ public class ReisModel {
 
     private final List<String> tags;
     private final BitmapResource reisAfbeelding;
+    private final BitmapResource reisThumbnail;
     private final String reisTitel;
     private final String reisType;
     private final String reisKorteBeschrijving;
@@ -39,9 +40,10 @@ public class ReisModel {
     private final String hotelsKorteBeschrijving;
     private final TextSection hotelsLangeBeschrijving;
 
-    public ReisModel(List<String> tags, BitmapResource reisAfbeelding, String reisTitel, String reisType, String reisKorteBeschrijving, String reisAlgemeneBeschrijving, BitmapResource kurenAfbeelding, String kurenTitel, String kurenKorteBeschrijving, String kurenLangeBeschrijving, Map<String, String> kuren, BitmapResource omgevingAfbeelding, String omgevingTitel, String omgevingKorteBeschrijving, String omgevingLangeBeschrijving, BitmapResource hotelsAfbeelding, String hotelsTitel, String hotelsKorteBeschrijving, TextSection hotelsLangeBeschrijving) {
+    public ReisModel(List<String> tags, BitmapResource reisAfbeelding, BitmapResource reisThumbnail, String reisTitel, String reisType, String reisKorteBeschrijving, String reisAlgemeneBeschrijving, BitmapResource kurenAfbeelding, String kurenTitel, String kurenKorteBeschrijving, String kurenLangeBeschrijving, Map<String, String> kuren, BitmapResource omgevingAfbeelding, String omgevingTitel, String omgevingKorteBeschrijving, String omgevingLangeBeschrijving, BitmapResource hotelsAfbeelding, String hotelsTitel, String hotelsKorteBeschrijving, TextSection hotelsLangeBeschrijving) {
         this.tags = tags;
         this.reisAfbeelding = reisAfbeelding;
+        this.reisThumbnail = reisThumbnail;
         this.reisTitel = reisTitel;
         this.reisType = reisType;
         this.reisKorteBeschrijving = reisKorteBeschrijving;
@@ -63,6 +65,9 @@ public class ReisModel {
 
     public BitmapResource getReisAfbeelding() {
         return reisAfbeelding;
+    }
+    public BitmapResource getReisThumbnail() {
+        return reisThumbnail;
     }
     public String getReisTitel() {
         return reisTitel;
@@ -127,6 +132,7 @@ public class ReisModel {
             for (int i = 0; i < tagsJSON.length(); i++)
                 tags.add(tagsJSON.getString(i));
             BitmapResource reisAfbeelding = new BitmapResource(object.getString("afbeelding"));
+            BitmapResource reisThumbnail = new BitmapResource(object.getString("thumbnail"));
             String reisTitel = object.getString("titel");
             String reisType = object.getString("reis_type");
             String reisKorteBeschrijving = object.getString("korte_beschrijving");
@@ -148,7 +154,7 @@ public class ReisModel {
             String hotelsKorteBeschrijving = object.getJSONObject("hotels").getString("korte_beschrijving");
             TextSection hotelsLangeBeschrijving = new TextSection(object.getJSONObject("hotels").getJSONObject("lange_beschrijving"));
 
-            return new ReisModel(tags, reisAfbeelding, reisTitel, reisType, reisKorteBeschrijving, reisAlgemeneBeschrijving, kurenAfbeelding, kurenTitel, kurenKorteBeschrijving, kurenLangeBeschrijving, kuren, omgevingAfbeelding, omgevingTitel, omgevingKorteBeschrijving, omgevingLangeBeschrijving, hotelsAfbeelding, hotelsTitel, hotelsKorteBeschrijving, hotelsLangeBeschrijving);
+            return new ReisModel(tags, reisAfbeelding, reisThumbnail, reisTitel, reisType, reisKorteBeschrijving, reisAlgemeneBeschrijving, kurenAfbeelding, kurenTitel, kurenKorteBeschrijving, kurenLangeBeschrijving, kuren, omgevingAfbeelding, omgevingTitel, omgevingKorteBeschrijving, omgevingLangeBeschrijving, hotelsAfbeelding, hotelsTitel, hotelsKorteBeschrijving, hotelsLangeBeschrijving);
         }
 
         @Override

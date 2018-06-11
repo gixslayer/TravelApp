@@ -23,6 +23,6 @@ public class ReisModelAdapter extends FilterModelAdapter<ReisModel>{
 
         titleView.setText(model.getReisTitel());
         shortDescriptionView.setText(model.getReisKorteBeschrijving());
-        model.getReisAfbeelding().getOrFetchToImageView(context, thumbnailView);
+        model.getReisThumbnail().getOrFetchToImageView(context, thumbnailView);
     }
 }
