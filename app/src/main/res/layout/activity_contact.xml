@@ -49,7 +49,7 @@ van 09.00 uur - 17.30 uur:"
         android:layout_marginLeft="10dp"
         android:text="024 - 44 25 847"
         android:autoLink="phone"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColorLink="@color/colorPrimaryDark"/>
     <TextView
         android:id="@+id/email_text"
         android:layout_width="match_parent"
@@ -67,7 +67,6 @@ van 09.00 uur - 17.30 uur:"
         android:layout_marginLeft="10dp"
         android:autoLink="email"
         android:textColorLink="@color/colorPrimaryDark"
-        android:textStyle="normal"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textStyle="normal"/>
 
 </LinearLayout>
