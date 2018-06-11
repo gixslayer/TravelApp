@@ -22,6 +22,9 @@ import rnd.travelapp.utils.CollectionUtils;
 import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.StreamUtils;
 
+/**
+ * Handles metadata for a DiskCache.
+ */
 public class DiskCacheMeta {
     private static final List<ValidatorEntry> EMPTY_VALIDATOR_LIST = new ArrayList<>();
 
@@ -38,6 +41,9 @@ public class DiskCacheMeta {
         this.root = root;
     }
 
+    /**
+     * Index all the files currently on-disk and in the saved on-disk meta file if one exists.
+     */
     public void index() {
         synchronized (entries) {
             if (meta.exists()) {
@@ -58,6 +64,10 @@ public class DiskCacheMeta {
         }
     }
 
+    /**
+     * Verify the integrity of the on-disk files, returning a list of mutations that should occur to synchronize the cache from the backing store.
+     * @return the mutations to occur upon success, or the failure cause otherwise.
+     */
     public Failable<List<ValidatorEntry>> verify() {
         return validator.getLastModified().process(lastModified -> {
            if(lastModified.equals(knownLastModified)) {
@@ -72,30 +82,58 @@ public class DiskCacheMeta {
         });
     }
 
-    public void addIfMissing(String key, File file) {
+    /**
+     * Add a new entry if it is currently missing.
+     * @param key the entry key
+     * @param file the on-disk file the entry is stored to
+     * @return the on-disk file
+     */
+    public File addIfMissing(String key, File file) {
         synchronized (entries) {
             entries.putIfAbsent(key, DiskCacheEntry.fromFile(file, key));
         }
+
+        return file;
     }
 
+    /**
+     * Adds or replaces the entry.
+     * @param key the entry key
+     * @param file the on-disk file the entry is stored to
+     * @param checksum the checksum of the on-disk file
+     */
     public void addOrUpdate(String key, File file, String checksum) {
         synchronized (entries) {
             entries.put(key, DiskCacheEntry.fromFile(file, key, checksum));
         }
     }
 
+    /**
+     * Removes an entry.
+     * @param key the entry key
+     */
     public void remove(String key) {
         synchronized (entries) {
             entries.remove(key);
         }
     }
 
+    /**
+     * Gets an entry if one exists for the given key.
+     * @param key the entry key
+     * @return the entry if one exists, or an empty Optional otherwise
+     */
     public Optional<DiskCacheEntry> getEntry(String key) {
         synchronized (entries) {
             return Optional.ofNullable(entries.get(key));
         }
     }
 
+    /**
+     * Get the on-disk File instance for the given entry key.
+     * @param key the entry key
+     * @return the File instance, which might not exist
+     */
     public File getFile(String key) {
         File file = root;
 
@@ -106,6 +144,11 @@ public class DiskCacheMeta {
         return file;
     }
 
+    /**
+     * Get the file path for the given entry key.
+     * @param file the entry key
+     * @return the file path
+     */
     public String getPath(File file) {
         StringBuilder sb = new StringBuilder();
 
@@ -117,6 +160,9 @@ public class DiskCacheMeta {
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     * Save any changes made to the cache to the on-disk meta file.
+     */
     public void saveChanges() {
         saveMeta();
     }

@@ -14,6 +14,9 @@ import java.util.Date;
 
 import rnd.travelapp.utils.StreamUtils;
 
+/**
+ * Represents a DiskCache metadata entry.
+ */
 public class DiskCacheEntry {
     private static final MessageDigest DIGEST;
 
@@ -90,9 +93,7 @@ public class DiskCacheEntry {
 
     private static String getChecksum(File file) {
         try (FileInputStream stream = new FileInputStream(file)) {
-            byte[] hash = StreamUtils.checksum(stream, DIGEST);
-
-            return toHex(hash);
+            return toHex(StreamUtils.checksum(stream, DIGEST));
         } catch (IOException e) {
             Log.e("CACHE_APP", "Could not compute checksum", e);
         }

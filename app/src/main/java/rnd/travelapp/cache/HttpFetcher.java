@@ -10,6 +10,9 @@ import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.HttpUtils;
 import rnd.travelapp.utils.StreamUtils;
 
+/**
+ * Fetcher implementation that fetches from a remote HTTP server.
+ */
 public class HttpFetcher implements Fetcher {
     private final String hostURL;
     private final int hostPort;

@@ -3,6 +3,9 @@ package rnd.travelapp.cache;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Represents a Validator response mutation that must be performed to sync the local cache.
+ */
 public class ValidatorEntry {
     private final String file;
     private final String checksum;
@@ -34,9 +37,21 @@ public class ValidatorEntry {
         return new ValidatorEntry(file, checksum, status);
     }
 
+    /**
+     * The mutation type.
+     */
     public enum Status {
+        /**
+         * There is a new entry that should be fetched.
+         */
         New,
+        /**
+         * There is an existing entry that has been modified and should be fetched again.
+         */
         Modified,
+        /**
+         * There is an entry that was removed and should be removed.
+         */
         Removed;
 
         protected static Status fromString(String value) {

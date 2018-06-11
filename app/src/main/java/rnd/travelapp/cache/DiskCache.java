@@ -10,12 +10,14 @@ import java.io.IOException;
 import java.util.Optional;
 
 import rnd.travelapp.resources.Resource;
-import rnd.travelapp.serialization.BinaryLoader;
 import rnd.travelapp.serialization.BinaryLoaders;
 import rnd.travelapp.serialization.JSONLoaders;
 import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.StreamUtils;
 
+/**
+ * Represents an on-disk cache for both models and wrapped resources.
+ */
 public class DiskCache implements Cache, ResourceCache {
     private final DiskCacheMeta meta;
     private final Fetcher fetcher;
@@ -34,14 +36,23 @@ public class DiskCache implements Cache, ResourceCache {
         this.fetcher = fetcher;
     }
 
+    /**
+     * Index all the files currently on-disk.
+     */
     public void index() {
         meta.index();
     }
 
+    /**
+     * Verify the integrity of the on-disk files.
+     */
     public void verify() {
         meta.verify().ifSucceeded(entries -> entries.forEach(this::processValidatorEntry));
     }
 
+    /**
+     * Save any changes made to the cache.
+     */
     public void saveChanges() {
         meta.saveChanges();
     }
@@ -70,15 +81,20 @@ public class DiskCache implements Cache, ResourceCache {
     private void fetchFile(String path, File destination, String checksum) {
         fetcher.fetch(path, destination).consume(
                 file -> meta.addOrUpdate(path, destination, checksum),
-                failReason -> Log.e("TRAVEL_APP", "File fetch from validator entry failed", failReason)
+                cause -> Log.e("TRAVEL_APP", "File fetch from validator entry failed", cause)
         );
+    }
+
+    private Failable<File> fetchFile(String key) {
+        return fetcher.fetch(key, meta.getFile(key)).processSafe(file -> meta.addIfMissing(key, file));
     }
 
     private <T> Failable<T> load(File file, Class<T> type) {
         try(FileInputStream stream = new FileInputStream(file)) {
             String json = StreamUtils.toString(stream);
+            T instance = JSONLoaders.deserialize(json, type);
 
-            return Failable.success(JSONLoaders.deserialize(json, type));
+            return Failable.success(instance);
         } catch (IOException | JSONException e) {
             Log.e("CACHE_APP", "Failed to deserialize json file", e);
 
@@ -88,10 +104,8 @@ public class DiskCache implements Cache, ResourceCache {
 
     private <T> Failable<Resource<T>> loadResource(File file, Class<? extends Resource<T>> type) {
         try(FileInputStream stream = new FileInputStream(file)) {
-            BinaryLoader<T> loader = BinaryLoaders.get(type);
-
-            T resource = loader.deserialize(stream);
-            Resource<T> instance = loader.create(meta.getPath(file), resource);
+            T resource = BinaryLoaders.deserialize(stream, type);
+            Resource<T> instance = BinaryLoaders.get(type).create(meta.getPath(file), resource);
 
             return Failable.success(instance);
         } catch (IOException e) {
@@ -99,14 +113,6 @@ public class DiskCache implements Cache, ResourceCache {
 
             return Failable.failure(e);
         }
-    }
-
-    private Failable<File> fetchFile(String key) {
-        return fetcher.fetch(key, meta.getFile(key)).processSafe(file -> {
-            meta.addIfMissing(key, file);
-
-            return file;
-        });
     }
 
     @Override

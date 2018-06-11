@@ -17,6 +17,9 @@ import rnd.travelapp.utils.Failable;
 import rnd.travelapp.utils.HttpUtils;
 import rnd.travelapp.utils.StreamUtils;
 
+/**
+ * Validator implementation that validates against a remote HTTP server.
+ */
 public class HttpValidator implements Validator {
     private final URL hostURL;
 

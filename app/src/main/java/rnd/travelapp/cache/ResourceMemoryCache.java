@@ -9,6 +9,10 @@ import java.util.Queue;
 import rnd.travelapp.resources.Resource;
 import rnd.travelapp.utils.Failable;
 
+/**
+ * Represents an in-memory cache for wrapped resources. The cache has a finite size, and entries are
+ * evicted from the cache based on a Least Recently Used scheme as long as the size limit is exceeded.
+ */
 public class ResourceMemoryCache implements ResourceCache {
     private final Map<String, Resource> resources;
     private final Queue<String> evictionQueue;

@@ -6,6 +6,10 @@ import java.util.Optional;
 
 import rnd.travelapp.utils.Failable;
 
+/**
+ * Represents an in-memory cache for models. As models should have a small memory footprint, entries
+ * are never evicted from the cache.
+ */
 public class MemoryCache implements Cache {
     private final Map<String, Object> entries;
     private final Cache fallback;
