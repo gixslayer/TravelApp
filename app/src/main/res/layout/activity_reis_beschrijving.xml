@@ -27,12 +27,15 @@
                 <ImageView
                     android:id="@+id/reis_afbeelding"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"/>
+                    android:scaleType="centerCrop"
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -57,7 +60,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="20dp"/>
 
                     <TextView
                         android:id="@+id/reis_algemene_beschrijving"
@@ -65,6 +69,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimaryDark" />
                 </LinearLayout>
+                <View
+                    android:layout_width="325dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
@@ -125,7 +136,6 @@
                             android:id="@+id/kuren_korte_beschrijving"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="inherit"
                             android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
 
@@ -316,7 +326,6 @@
                             android:id="@+id/hotels_korte_beschrijving"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="inherit"
                             android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
 
@@ -356,7 +365,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reis_hotels"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
                 <ImageView
                     android:id="@+id/copyright"
