@@ -78,13 +78,13 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
         hotelsLangeBeschrijving.setText(reisModel.getHotelsLangeBeschrijving().getSpannedString(this));
 
         // Expand buttons
-        /*ImageButton expandKurenButton = findViewById(R.id.btn_expand_kuren);
+        ImageButton expandKurenButton = findViewById(R.id.btn_expand_kuren);
         ImageButton expandOmgevingButton = findViewById(R.id.btn_expand_omgeving);
         ImageButton expandHotelsButton = findViewById(R.id.btn_expand_hotels);
 
         expandKurenButton.setOnClickListener(new ExpandButtonListener(kurenLangeBeschrijving));
         expandOmgevingButton.setOnClickListener(new ExpandButtonListener(omgevingLangeBeschrijving));
-        expandHotelsButton.setOnClickListener(new ExpandButtonListener(hotelsLangeBeschrijving));*/
+        expandHotelsButton.setOnClickListener(new ExpandButtonListener(hotelsLangeBeschrijving));
 
         // HIER MOETEN NOG DE KUUR BUTTONS LISTENERS KRIJGEN
     }
@@ -96,39 +96,41 @@ public class ReisModelActivity extends ModelActivity<ReisModel> {
 
     private class ExpandButtonListener implements View.OnClickListener {
         private final View expandable;
-        private final int oldHeight;
-        private final ValueAnimator slide_down;
-        private final ValueAnimator slide_up;
+//        private final int oldHeight;
+//        private final ValueAnimator slide_down;
+//        private final ValueAnimator slide_up;
 
         public ExpandButtonListener(View expandable) {
             this.expandable = expandable;
-            this.oldHeight = expandable.getHeight();
-            ViewGroup.LayoutParams params = expandable.getLayoutParams();
-            params.height = 0;
-            expandable.setLayoutParams(params);
-            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
-            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
-        }
-
-        public ExpandButtonListener(View expandable, int oldHeight) {
-            this.expandable = expandable;
-            this.oldHeight = oldHeight;
-            ViewGroup.LayoutParams params = expandable.getLayoutParams();
-            params.height = 0;
-            expandable.setLayoutParams(params);
-            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
-            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
+//            this.oldHeight = expandable.getHeight();
+//            ViewGroup.LayoutParams params = expandable.getLayoutParams();
+//            params.height = 0;
+//            expandable.setLayoutParams(params);
+//            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
+//            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
         }
 
         public void onClick(View button) {
-            if (expandable.getLayoutParams().height == oldHeight) {
-                slide_up.start();
-            } else {
-                slide_down.start();
-            }
-
-//            expandable.setVisibility(expandable.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            expandable.setVisibility(expandable.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
         }
+
+//        public ExpandButtonListener(View expandable, int oldHeight) {
+//            this.expandable = expandable;
+//            this.oldHeight = oldHeight;
+//            ViewGroup.LayoutParams params = expandable.getLayoutParams();
+//            params.height = 0;
+//            expandable.setLayoutParams(params);
+//            this.slide_down = getToggleAnimation(expandable, 0, oldHeight);
+//            this.slide_up = getToggleAnimation(expandable, oldHeight, 0);
+//        }
+
+//        public void onClick(View button) {
+//            if (expandable.getLayoutParams().height == oldHeight) {
+//                slide_up.start();
+//            } else {
+//                slide_down.start();
+//            }
+//        }
     }
 
     private ValueAnimator getToggleAnimation(View view, int startHeight, int endHeight) {
