@@ -62,7 +62,7 @@ public class KuurModel {
         return beschrijving;
     }
 
-    protected static class Loader implements JSONLoader<KuurModel> {
+    public static class Loader implements JSONLoader<KuurModel> {
         @Override
         public KuurModel deserialize(JSONObject object) throws JSONException {
             JSONArray tagsJSON = object.getJSONArray("tags");

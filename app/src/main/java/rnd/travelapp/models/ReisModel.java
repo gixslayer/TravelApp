@@ -124,7 +124,7 @@ public class ReisModel {
         return hotelsLangeBeschrijving;
     }
 
-    protected static class Loader implements JSONLoader<ReisModel> {
+    public static class Loader implements JSONLoader<ReisModel> {
         @Override
         public ReisModel deserialize(JSONObject object) throws JSONException {
             JSONArray tagsJSON = object.getJSONArray("tags");

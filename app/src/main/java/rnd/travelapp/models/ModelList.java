@@ -51,7 +51,7 @@ public class ModelList {
         return models.length;
     }
 
-    protected static class Loader implements JSONLoader<ModelList> {
+    public static class Loader implements JSONLoader<ModelList> {
 
         @Override
         public ModelList deserialize(JSONObject object) throws JSONException {

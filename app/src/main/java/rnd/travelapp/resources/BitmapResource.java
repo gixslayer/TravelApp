@@ -56,7 +56,7 @@ public class BitmapResource extends Resource<Bitmap> {
         });
     }
 
-    protected static class Loader implements BinaryLoader<Bitmap> {
+    public static class Loader implements BinaryLoader<Bitmap> {
         @Override
         public Bitmap deserialize(InputStream stream) throws IOException {
             Bitmap bitmap = BitmapFactory.decodeStream(stream);
